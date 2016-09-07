@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment"
+    android:background="@drawable/bg">
+
+    <ImageView
+        android:id="@+id/username_image"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="39dp"
+        android:src="@drawable/username"
+        android:alpha="0.5"/>
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/username_image"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/password"
+        android:alpha="0.5"/>
+
+    <Button
+        android:id="@+id/btn_nastavi"
+        android:layout_width="335dp"
+        android:layout_height="55dp"
+        android:background="@color/dandelion"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="53dp"
+        android:text="@string/nastavi"
+        android:textColor="@color/black"
+        android:textAllCaps="false"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/zaboravljena_lozinka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ZaboravljenaLozinka"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        />
+
+</RelativeLayout>
