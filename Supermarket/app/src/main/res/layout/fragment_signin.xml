@@ -84,6 +84,7 @@
         android:background="@color/dandelion"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+
         android:layout_marginBottom="53dp"
         android:text="@string/nastavi"
         android:textColor="@color/black"
