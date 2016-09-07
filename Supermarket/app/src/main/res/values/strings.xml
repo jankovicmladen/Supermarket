@@ -6,4 +6,24 @@
 
     <string name="nastavi">Nastavi</string>
     <string name="ZaboravljenaLozinka">Zaboravljena lozinka?</string>
+    <string name="name">Ime</string>
+    <string name="secon_name">Prezime</string>
+    <string name="username">Lozinka</string>
+    <string name="password">Šifra</string>
+    <string name="cell_phone">Mobilni telefon</string>
+    <string name="phone">Telefon</string>
+    <string name="fax">Fax</string>
+    <string name="street">Ulica</string>
+    <string name="number">Broj</string>
+    <string name="appartment">Broj stana</string>
+    <string name="floor">Sprat</string>
+    <string name="entrance">Ulaz</string>
+    <string name="city">Grad</string>
+    <string name="postal_code">Poštanski kod</string>
+    <string name="newletter">Prijavi se za novoti</string>
+    <string name="day">Dan</string>
+    <string name="month">Mesec</string>
+    <string name="year">Godina</string>
+    <string name="male">Muški</string>
+    <string name="female">Ženski</string>
 </resources>
