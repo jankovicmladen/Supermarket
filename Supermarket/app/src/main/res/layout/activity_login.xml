@@ -14,6 +14,25 @@
         android:background="#10ffffff">
 
         <ImageView
+            android:id="@+id/add_image"
+            android:layout_width="26.5dp"
+            android:layout_height="25.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="28.5dp"
+            android:layout_marginRight="15.5dp"
+            android:src="@drawable/add"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/img_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logo_white"
