@@ -1,10 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment"
-    android:background="@drawable/bg">
-
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    tools:context=".LoginFragment">
 
 
     <RelativeLayout
@@ -34,11 +34,12 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
         android:layout_marginTop="40dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/username">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/img_password"
@@ -60,29 +61,49 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_nastavi"
-        android:layout_width="335dp"
-        android:layout_height="55dp"
-        android:background="@color/dandelion"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="53dp"
-        android:text="@string/nastavi"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:textSize="15sp"/>
-
-    <TextView
-        android:id="@+id/zaboravljena_lozinka"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/ZaboravljenaLozinka"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        />
+        android:layout_below="@+id/username"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/staylogin"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_nastavi"
+            android:layout_width="335dp"
+            android:layout_height="55dp"
+            android:background="@color/dandelion"
+            android:text="@string/nastavi"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/zaboravljena_lozinka"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_nastavi"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/ZaboravljenaLozinka"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+</LinearLayout>

@@ -31,4 +31,5 @@
     <string name="register">Registruj se</string>
     <string name="pib">PIB</string>
     <string name="company_name">Ime firme</string>
+    <string name="staylogin">Ostani ulogovan</string>
 </resources>
