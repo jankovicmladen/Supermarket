@@ -36,6 +36,8 @@ public class SigninFragment extends Fragment {
 
         addListeners();
 
+        
+
         return mView;
     }
 
