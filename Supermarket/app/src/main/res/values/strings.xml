@@ -8,8 +8,8 @@
     <string name="ZaboravljenaLozinka">Zaboravljena lozinka?</string>
     <string name="name">Ime</string>
     <string name="secon_name">Prezime</string>
-    <string name="username">Lozinka</string>
-    <string name="password">Šifra</string>
+    <string name="username">Korisnicko ime</string>
+    <string name="password">Lozinka</string>
     <string name="cell_phone">Mobilni telefon</string>
     <string name="phone">Telefon</string>
     <string name="fax">Fax</string>
@@ -26,4 +26,9 @@
     <string name="year">Godina</string>
     <string name="male">Muški</string>
     <string name="female">Ženski</string>
+    <string name="uslovi_koriscenja">Uslovi koriscenja</string>
+    <string name="email">email</string>
+    <string name="register">Registruj se</string>
+    <string name="pib">PIB</string>
+    <string name="company_name">Ime firme</string>
 </resources>
