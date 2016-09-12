@@ -1,4 +1,4 @@
-package supermarket.main;
+package supermarket.main.ui.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import supermarket.main.R;
 
 
 public class LoginFragment extends Fragment {

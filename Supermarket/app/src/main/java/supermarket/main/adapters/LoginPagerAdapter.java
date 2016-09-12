@@ -1,9 +1,12 @@
-package supermarket.main;
+package supermarket.main.adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import supermarket.main.ui.fragment.LoginFragment;
+import supermarket.main.ui.fragment.SigninFragment;
 
 /**
  * Created by cubesschool2 on 9/7/16.
