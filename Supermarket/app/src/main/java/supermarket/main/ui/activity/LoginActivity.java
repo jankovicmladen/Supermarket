@@ -13,6 +13,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +27,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import supermarket.main.adapters.LoginPagerAdapter;
 import supermarket.main.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends ActivityWithMessage {
 
     private static final int YOUR_SELECT_PICTURE_REQUEST_CODE = 111;
 
@@ -35,16 +37,19 @@ public class LoginActivity extends AppCompatActivity {
     private Uri outputFileUri;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_login);
 
         iniComponents();
         addListeners();
 
-
-
     }
+
 
     private void iniComponents() {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);

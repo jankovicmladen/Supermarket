@@ -32,4 +32,6 @@
     <string name="pib">PIB</string>
     <string name="company_name">Ime firme</string>
     <string name="staylogin">Ostani ulogovan</string>
+    <string name="error_activity">Doslo je do greske!</string>
+    <string name="error_internet">Doslo je do greske</string>
 </resources>

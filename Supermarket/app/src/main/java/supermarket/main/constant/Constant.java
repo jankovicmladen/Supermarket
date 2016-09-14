@@ -10,7 +10,7 @@ public class Constant {
     public static String APPLICATION_PASSWORD = "VRf68vuFNAXWXjTg@!";
     public static String APPLICATION_USERNAME = "phone";
 
-    private static String BASE_URL = "http://shop.cubes.rs/";
+    private static String BASE_URL = "http://ssdddcubes.rs/";
 
     public static String GRT_TOKEN_URL = BASE_URL + "phone-home-gettoken";
     public static String LOGIN_URL = BASE_URL + "phone-user";

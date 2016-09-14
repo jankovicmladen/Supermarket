@@ -1,13 +1,17 @@
 package supermarket.main.ui.activity;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.squareup.otto.Subscribe;
 
 import supermarket.main.R;
 import supermarket.main.constant.Constant;
@@ -17,18 +21,26 @@ import supermarket.main.data.response.ResponseCity;
 import supermarket.main.data.response.ResponseToken;
 import supermarket.main.networking.DataLoader;
 import supermarket.main.networking.GsonReguest;
+import supermarket.main.tool.BusProvider;
+import supermarket.main.tool.MessageObject;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends ActivityWithMessage {
 
     private final String REQUEST_TAG = "Start_activity";
     private GsonReguest<ResponseToken> mRequestToken;
     private GsonReguest<ResponseCategory> mREquestCategory;
     private GsonReguest<ResponseCity> mRequestCityu;
+    private int chek=0;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_start_page);
 
         mRequestToken = new GsonReguest<ResponseToken>(Constant.GRT_TOKEN_URL + "?username=" + Constant.APPLICATION_USERNAME +
@@ -40,12 +52,16 @@ public class StartActivity extends AppCompatActivity {
 
                 DataLoader.addRequest(getApplicationContext(),mREquestCategory, REQUEST_TAG);
                 DataLoader.addRequest(getApplicationContext(),mRequestCityu, REQUEST_TAG);
+                //chek++;
+                checkOK(chek);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getLocalizedMessage(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), error.getLocalizedMessage(),
+//                        Toast.LENGTH_LONG).show();
+
+                BusProvider.getInstance().post(new MessageObject());
             }
         });
 
@@ -55,8 +71,8 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(ResponseCategory response) {
                         DataContainer.categories = response.data.results;
-//                        Toast.makeText(getApplicationContext(),DataContainer.categories.toString(),Toast.LENGTH_LONG).show();
-//                        DataLoader.addRequest(getApplicationContext(),mRequestCityu, REQUEST_TAG);
+                        //chek++;
+                        checkOK(chek);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -69,8 +85,8 @@ public class StartActivity extends AppCompatActivity {
                 new Response.Listener<ResponseCity>() {
                     @Override
                     public void onResponse(ResponseCity response) {
-                      //  DataContainer.
-                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                       // chek++;
+                        checkOK(chek);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -87,4 +103,14 @@ public class StartActivity extends AppCompatActivity {
         super.onDestroy();
         DataLoader.cancelRequest(getApplicationContext(), REQUEST_TAG);
     }
+
+    private synchronized void checkOK(int param){
+        chek++;
+        param=chek;
+        if(param==3){
+            startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+            finish();
+        }
+    }
+
 }

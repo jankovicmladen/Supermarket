@@ -5,10 +5,10 @@ import android.os.Bundle;
 
 import supermarket.main.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActivityWithMessage {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
