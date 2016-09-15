@@ -94,7 +94,7 @@
             android:textSize="15sp"
             android:layout_centerHorizontal="true"/>
 
-        <TextView
+        <supermarket.main.customComponents.TextViewFont
             android:id="@+id/zaboravljena_lozinka"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

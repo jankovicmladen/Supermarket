@@ -11,6 +11,7 @@ public class DataContainer {
     public static ArrayList<DataCategory> categories;
     public static ArrayList<DataCity> cities;
     public static ArrayList<String> stringsCities;
+    public static ArrayList<DataReservation> reservations;
 
 
     public static ArrayList<String> cityToString(ArrayList<DataCity> cities){

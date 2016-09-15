@@ -1,12 +1,9 @@
 package supermarket.main.ui.activity;
 
 import android.content.Intent;
-import android.nfc.Tag;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -18,6 +15,7 @@ import supermarket.main.constant.Constant;
 import supermarket.main.data.DataContainer;
 import supermarket.main.data.response.ResponseCategory;
 import supermarket.main.data.response.ResponseCity;
+import supermarket.main.data.response.ResponseReservation;
 import supermarket.main.data.response.ResponseToken;
 import supermarket.main.networking.DataLoader;
 import supermarket.main.networking.GsonReguest;
@@ -30,7 +28,8 @@ public class StartActivity extends ActivityWithMessage {
     private GsonReguest<ResponseToken> mRequestToken;
     private GsonReguest<ResponseCategory> mREquestCategory;
     private GsonReguest<ResponseCity> mRequestCityu;
-    private int chek=0;
+    private GsonReguest<ResponseReservation> mRequestReservation;
+    private int chek = 0;
 
 
     private int check = 0;
@@ -55,12 +54,11 @@ public class StartActivity extends ActivityWithMessage {
                 checkOK(check);
                 DataLoader.addRequest(getApplicationContext(), mREquestCategory, REQUEST_TAG);
                 DataLoader.addRequest(getApplicationContext(), mRequestCityu, REQUEST_TAG);
+                DataLoader.addRequest(getApplicationContext(), mRequestReservation, REQUEST_TAG);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getApplicationContext(), error.getLocalizedMessage(),
-//                        Toast.LENGTH_LONG).show();
 
                 BusProvider.getInstance().post(new MessageObject());
             }
@@ -74,13 +72,12 @@ public class StartActivity extends ActivityWithMessage {
                         DataContainer.categories = response.data.results;
                         check++;
                         checkOK(check);
-//                        Toast.makeText(getApplicationContext(),DataContainer.categories.toString(),Toast.LENGTH_LONG).show();
-//                        DataLoader.addRequest(getApplicationContext(),mRequestCityu, REQUEST_TAG);
+//
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                BusProvider.getInstance().post(new MessageObject());
             }
         });
 
@@ -95,15 +92,30 @@ public class StartActivity extends ActivityWithMessage {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                BusProvider.getInstance().post(new MessageObject());
             }
         });
 
 
+        mRequestReservation = new GsonReguest<ResponseReservation>(Constant.RESERVATION_URL,
+                Request.Method.GET, ResponseReservation.class,
+                new Response.Listener<ResponseReservation>() {
+                    @Override
+                    public void onResponse(ResponseReservation response) {
+                        DataContainer.reservations = response.data.results;
+                        check++;
+                        checkOK(check);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                BusProvider.getInstance().post(new MessageObject());
+            }
+        });
+
 
         DataLoader.addRequest(getApplicationContext(), mRequestToken, REQUEST_TAG);
     }
-
 
 
     @Override
@@ -113,7 +125,7 @@ public class StartActivity extends ActivityWithMessage {
     }
 
     private synchronized boolean checkOK(int param) {
-        if (param == 3) {
+        if (param == 4) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             finish();
             return true;
