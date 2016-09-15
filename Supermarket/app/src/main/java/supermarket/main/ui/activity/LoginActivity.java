@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 
@@ -33,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private ImageView mImageView, mLogoImage, mAddImage;
     private Uri outputFileUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mLogoImage = (ImageView) findViewById(R.id.img_logo);
         mAddImage = (ImageView) findViewById(R.id.add_image);
+
+
     }
 
     private void addListeners(){

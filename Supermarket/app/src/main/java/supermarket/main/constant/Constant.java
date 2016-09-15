@@ -1,5 +1,6 @@
 package supermarket.main.constant;
 
+
 import supermarket.main.data.DataContainer;
 
 /**
@@ -17,7 +18,7 @@ public class Constant {
     public static String SIGNUP_URL = BASE_URL + "phone-signup";
     public static String FORGOT_PASSWORD_URL = BASE_URL + "phone-user-forgotpassword";
     public static String CITY_URL = BASE_URL + "phone-helper-places?token="+ DataContainer.TOKEN;
-    public static String RESERVATION_URL = BASE_URL + "phone-helper-reservation";
+    public static String RESERVATION_URL = BASE_URL + "phone-helper-reservation?token=" + DataContainer.TOKEN;
     public static String CATEGORY_URL = BASE_URL + "phone-categories";
 
     //POSTMAN za proveru post metoda

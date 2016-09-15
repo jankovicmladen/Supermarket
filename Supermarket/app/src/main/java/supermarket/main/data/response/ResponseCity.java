@@ -18,6 +18,6 @@ public class ResponseCity {
     public class ResponceCityPom2{
         public String status;
         public String error;
-        public ResponseCityPom result;
+        public ResponseCityPom results;
     }
 }

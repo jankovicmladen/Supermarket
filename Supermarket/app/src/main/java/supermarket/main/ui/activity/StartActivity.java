@@ -1,5 +1,6 @@
 package supermarket.main.ui.activity;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ public class StartActivity extends AppCompatActivity {
     private GsonReguest<ResponseCity> mRequestCityu;
 
 
+    private int check = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +40,10 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onResponse(ResponseToken response) {
                 DataContainer.TOKEN = response.data.results.token;
-
-                DataLoader.addRequest(getApplicationContext(),mREquestCategory, REQUEST_TAG);
-                DataLoader.addRequest(getApplicationContext(),mRequestCityu, REQUEST_TAG);
+                check++;
+                checkOK(check);
+                DataLoader.addRequest(getApplicationContext(), mREquestCategory, REQUEST_TAG);
+                DataLoader.addRequest(getApplicationContext(), mRequestCityu, REQUEST_TAG);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -55,6 +59,8 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(ResponseCategory response) {
                         DataContainer.categories = response.data.results;
+                        check++;
+                        checkOK(check);
 //                        Toast.makeText(getApplicationContext(),DataContainer.categories.toString(),Toast.LENGTH_LONG).show();
 //                        DataLoader.addRequest(getApplicationContext(),mRequestCityu, REQUEST_TAG);
                     }
@@ -69,8 +75,9 @@ public class StartActivity extends AppCompatActivity {
                 new Response.Listener<ResponseCity>() {
                     @Override
                     public void onResponse(ResponseCity response) {
-                      //  DataContainer.
-                        Toast.makeText(getApplicationContext(),response.toString(),Toast.LENGTH_LONG).show();
+                        DataContainer.cities = response.data.results.townships;
+                        check++;
+                        checkOK(check);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -79,12 +86,24 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+
+
         DataLoader.addRequest(getApplicationContext(), mRequestToken, REQUEST_TAG);
     }
+
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         DataLoader.cancelRequest(getApplicationContext(), REQUEST_TAG);
+    }
+
+    private synchronized boolean checkOK(int param) {
+        if (param == 3) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
+            return true;
+        } else return false;
     }
 }
