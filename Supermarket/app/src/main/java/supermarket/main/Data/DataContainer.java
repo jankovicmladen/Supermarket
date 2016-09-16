@@ -2,6 +2,9 @@ package supermarket.main.data;
 
 import java.util.ArrayList;
 
+import supermarket.main.data.response.ResponseDataUser;
+import supermarket.main.data.response.ResponseUser;
+
 /**
  * Created by cubesschool2 on 9/9/16.
  */
@@ -12,6 +15,10 @@ public class DataContainer {
     public static ArrayList<DataCity> cities;
     public static ArrayList<String> stringsCities;
     public static ArrayList<DataReservation> reservations;
+
+    public static ResponseDataUser user;
+    public static String token;
+    public static String loginToken;
 
 
     public static ArrayList<String> cityToString(ArrayList<DataCity> cities){

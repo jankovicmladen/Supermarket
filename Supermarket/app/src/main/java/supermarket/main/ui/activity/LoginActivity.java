@@ -10,7 +10,6 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -37,7 +36,6 @@ public class LoginActivity extends ActivityWithMessage {
     private ImageView mImageView, mLogoImage, mAddImage;
     private Uri outputFileUri;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,6 @@ public class LoginActivity extends ActivityWithMessage {
 
         iniComponents();
         addListeners();
-
     }
 
 

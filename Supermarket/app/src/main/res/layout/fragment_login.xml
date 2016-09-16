@@ -24,6 +24,7 @@
             android:src="@drawable/username" />
 
         <supermarket.main.customComponents.EditTextFont
+            android:id="@+id/et_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -51,7 +52,7 @@
             android:src="@drawable/password" />
 
         <supermarket.main.customComponents.EditTextFont
-
+            android:id="@+id/et_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -87,12 +88,12 @@
             android:id="@+id/btn_nastavi"
             android:layout_width="335dp"
             android:layout_height="55dp"
+            android:layout_centerHorizontal="true"
             android:background="@color/dandelion"
             android:text="@string/nastavi"
             android:textAllCaps="false"
             android:textColor="@color/black"
-            android:textSize="15sp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="15sp" />
 
         <supermarket.main.customComponents.TextViewFont
             android:id="@+id/zaboravljena_lozinka"
@@ -100,8 +101,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_nastavi"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:text="@string/ZaboravljenaLozinka"
             android:textColor="@color/white" />
 

@@ -26,6 +26,7 @@
                 android:src="@drawable/username" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/first_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -51,6 +52,7 @@
                 android:src="@drawable/username" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/last_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -76,6 +78,7 @@
                 android:src="@drawable/email" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -101,6 +104,7 @@
                 android:src="@drawable/password" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -126,6 +130,7 @@
                 android:src="@drawable/password" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/password_retype"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -151,6 +156,7 @@
                 android:src="@drawable/phone" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/cell_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -176,6 +182,7 @@
                 android:src="@drawable/phone" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -201,6 +208,7 @@
                 android:src="@drawable/phone" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/fax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -226,6 +234,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/street"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -251,6 +260,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -276,6 +286,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/appartment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -301,6 +312,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/floor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -326,6 +338,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/entrance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -384,6 +397,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/postal_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
