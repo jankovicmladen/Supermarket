@@ -109,7 +109,7 @@ public class SigninFragment extends Fragment {
 
         mEtUsser = (EditTextFont) mView.findViewById(R.id.first_name);
         mEtSurname = (EditTextFont) mView.findViewById(R.id.last_name);
-        mEtPassword = (EditTextFont) mView.findViewById(R.id.password);
+        mEtPassword = (EditTextFont) mView.findViewById(R.id.password2);
         mEtconfirmPassword = (EditTextFont) mView.findViewById(R.id.password_retype);
         mEtEmail = (EditTextFont) mView.findViewById(R.id.email);
         mEtPhone = (EditTextFont) mView.findViewById(R.id.phone);
@@ -218,7 +218,7 @@ public class SigninFragment extends Fragment {
                 Map<String, String> params = new HashMap<>();
                 params.put("first_name", "Mladen");
                 params.put("last_name", "Jankovic");
-                params.put("email", "mladen@gmail.com");
+                params.put("email", "mladen.ns@gmail.com");
                 params.put("password", "mladen");
                 params.put("password_retype", "mladen");
                 params.put("cell_phone", "32423423");
