@@ -28,6 +28,6 @@ public class HomeActivity extends AppCompatActivity {
         RecyclerAdapter adapter = new RecyclerAdapter(getApplicationContext(), DataContainer.products);
         mRecyclerView.setAdapter(adapter);
 
-//       
+//
     }
 }
