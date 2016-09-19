@@ -21,6 +21,8 @@ public class Constant {
     public static String RESERVATION_URL = BASE_URL + "phone-helper-reservation?token=" + DataContainer.TOKEN;
     public static String CATEGORY_URL = BASE_URL + "phone-categories";
 
+    public static String PRODUCTS = BASE_URL + "phone-products?token=" + DataContainer.loginToken;
+
     //POSTMAN za proveru post metoda
 
 }

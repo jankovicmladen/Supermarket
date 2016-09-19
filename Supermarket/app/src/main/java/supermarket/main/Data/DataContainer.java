@@ -3,6 +3,7 @@ package supermarket.main.data;
 import java.util.ArrayList;
 
 import supermarket.main.data.response.ResponseDataUser;
+import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseUser;
 
 /**
@@ -20,6 +21,7 @@ public class DataContainer {
     public static String token;
     public static String loginToken;
 
+    public static ArrayList<DataProduct> products;
 
     public static ArrayList<String> cityToString(ArrayList<DataCity> cities){
         ArrayList<String> result = new ArrayList<>();

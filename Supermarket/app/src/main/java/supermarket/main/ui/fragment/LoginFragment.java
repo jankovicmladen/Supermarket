@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,10 +30,12 @@ import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.DataContainer;
+import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseUser;
 import supermarket.main.networking.DataLoader;
 import supermarket.main.networking.GsonReguest;
 import supermarket.main.ui.activity.ForgotPasswordActivity;
+import supermarket.main.ui.activity.HomeActivity;
 
 
 public class LoginFragment extends Fragment {
@@ -46,6 +49,8 @@ private final String REQUEST_TAG = "Login";
     private EditTextFont mEtPassword;
 
     private Button mBtnLogin;
+
+    private GsonReguest<ResponseProducts> responseProducts;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -90,6 +95,24 @@ private final String REQUEST_TAG = "Login";
             }
         });
 
+        responseProducts = new GsonReguest<ResponseProducts>(
+                Constant.PRODUCTS, Request.Method.GET, ResponseProducts.class,
+                new Response.Listener<ResponseProducts>() {
+                    @Override
+                    public void onResponse(ResponseProducts response) {
+                        Log.i("response", response.data.status);
+
+                        DataContainer.products = response.data.results;
+                        startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+        );
+
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +125,7 @@ private final String REQUEST_TAG = "Login";
                                 DataContainer.user = response.data.results;
                                 DataContainer.token = response.data.token;
                                 DataContainer.loginToken = response.data.login_token;
+                                Log.i("token", DataContainer.loginToken);
 
                                 Toast.makeText(getActivity().getApplicationContext(),DataContainer.loginToken,Toast.LENGTH_LONG).show();
 
@@ -110,9 +134,13 @@ private final String REQUEST_TAG = "Login";
                                 try {
                                     String encryptedMsg = AESCrypt.encrypt(password, message);
                                     Toast.makeText(getActivity().getApplicationContext(),encryptedMsg,Toast.LENGTH_LONG).show();
+
+
                                 }catch (GeneralSecurityException e){
                                     //handle error
                                 }
+
+                                DataLoader.addRequest(getActivity().getApplicationContext(),responseProducts ,REQUEST_TAG);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -134,6 +162,10 @@ private final String REQUEST_TAG = "Login";
                 };
 
                 DataLoader.addRequest(getActivity().getApplicationContext(), gsonReguest, REQUEST_TAG);
+
+
+
+
             }
         });
 

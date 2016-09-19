@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import supermarket.main.R;
+
 /**
  * Created by Mladen on 9/15/2016.
  */

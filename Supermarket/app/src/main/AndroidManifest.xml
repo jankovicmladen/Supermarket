@@ -22,7 +22,9 @@
         </activity>
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.MainActivity" />
-        <activity android:name=".ui.activity.ForgotPasswordActivity"></activity>
+        <activity android:name=".ui.activity.ForgotPasswordActivity" />
+        <activity android:name=".ui.activity.HomeActivity" />
+        <activity android:name=".ui.activity.ProductActivity"></activity>
     </application>
 
 </manifest>

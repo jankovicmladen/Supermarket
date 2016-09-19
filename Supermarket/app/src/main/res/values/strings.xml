@@ -34,4 +34,5 @@
     <string name="staylogin">Ostani ulogovan</string>
     <string name="error_activity">Doslo je do greske!</string>
     <string name="error_internet">Doslo je do greske</string>
+    <string name="add">Dodaj u korpu</string>
 </resources>
