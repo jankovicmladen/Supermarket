@@ -1,4 +1,4 @@
-package supermarket.main.data;
+package supermarket.main.data.data;
 
 /**
  * Created by cubesschool2 on 9/16/16.

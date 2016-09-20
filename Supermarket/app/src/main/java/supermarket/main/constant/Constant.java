@@ -1,7 +1,7 @@
 package supermarket.main.constant;
 
 
-import supermarket.main.data.DataContainer;
+import supermarket.main.data.container.DataContainer;
 
 /**
  * Created by cubesschool2 on 9/9/16.
@@ -22,6 +22,7 @@ public class Constant {
     public static String CATEGORY_URL = BASE_URL + "phone-categories";
 
     public static String PRODUCTS = BASE_URL + "phone-products?token=" + DataContainer.loginToken;
+    public static String SINGLE_PRODUCT = BASE_URL + "phone-products-single?token=" + DataContainer.loginToken;
 
     //POSTMAN za proveru post metoda
 

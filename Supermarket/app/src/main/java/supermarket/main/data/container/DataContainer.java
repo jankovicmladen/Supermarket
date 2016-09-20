@@ -1,10 +1,13 @@
-package supermarket.main.data;
+package supermarket.main.data.container;
 
 import java.util.ArrayList;
 
+import supermarket.main.data.data.DataCategory;
+import supermarket.main.data.data.DataCity;
+import supermarket.main.data.data.DataProduct;
+import supermarket.main.data.data.DataReservation;
+import supermarket.main.data.data.DataSingleProduct;
 import supermarket.main.data.response.ResponseDataUser;
-import supermarket.main.data.response.ResponseProducts;
-import supermarket.main.data.response.ResponseUser;
 
 /**
  * Created by cubesschool2 on 9/9/16.
@@ -22,6 +25,8 @@ public class DataContainer {
     public static String loginToken;
 
     public static ArrayList<DataProduct> products;
+    public static DataSingleProduct product;
+    public static ArrayList<String> cart = new ArrayList<>();
 
     public static ArrayList<String> cityToString(ArrayList<DataCity> cities){
         ArrayList<String> result = new ArrayList<>();

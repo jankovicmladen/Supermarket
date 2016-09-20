@@ -1,8 +1,6 @@
 package supermarket.main.ui.fragment;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,13 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.scottyab.aescrypt.AESCrypt;
 
 import java.security.GeneralSecurityException;
@@ -29,7 +23,7 @@ import supermarket.main.R;
 import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
-import supermarket.main.data.DataContainer;
+import supermarket.main.data.container.DataContainer;
 import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseUser;
 import supermarket.main.networking.DataLoader;

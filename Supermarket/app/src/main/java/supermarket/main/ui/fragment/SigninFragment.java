@@ -1,7 +1,6 @@
 package supermarket.main.ui.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
@@ -9,12 +8,12 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -33,10 +32,8 @@ import java.util.regex.Pattern;
 import supermarket.main.R;
 import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
-import supermarket.main.data.DataCity;
-import supermarket.main.data.DataContainer;
-import supermarket.main.data.DataUser;
-import supermarket.main.networking.DataLoader;
+import supermarket.main.data.container.DataContainer;
+import supermarket.main.data.data.DataUser;
 
 
 public class SigninFragment extends Fragment {
@@ -96,10 +93,13 @@ public class SigninFragment extends Fragment {
     private void iniComponents() {
         mSpinnerCity = (Spinner) mView.findViewById(R.id.spinner_city);
 
-        ArrayAdapter<String> ciyAdapter = new ArrayAdapter(getActivity().getApplicationContext(),
-                android.R.layout.simple_spinner_item, DataContainer.cityToString(DataContainer.cities));
+//        ArrayAdapter<String> ciyAdapter = new ArrayAdapter(getActivity().getApplicationContext(),
+//                android.R.layout.simple_spinner_item, DataContainer.cityToString(DataContainer.cities));
+//
+//        ciyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        ciyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        SpinnerAdapter ciyAdapter = new supermarket.main.adapters.SpinnerAdapter(getActivity().getApplicationContext(),
+                R.layout.simple_spinner_item,DataContainer.cities);
         mSpinnerCity.setAdapter(ciyAdapter);
 
         mSwIsCompany = (SwitchCompat) mView.findViewById(R.id.isCompany);

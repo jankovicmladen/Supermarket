@@ -1,4 +1,4 @@
-package supermarket.main.data;
+package supermarket.main.data.data;
 
 import java.util.ArrayList;
 

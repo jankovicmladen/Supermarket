@@ -8,11 +8,10 @@ import android.view.WindowManager;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.squareup.otto.Subscribe;
 
 import supermarket.main.R;
 import supermarket.main.constant.Constant;
-import supermarket.main.data.DataContainer;
+import supermarket.main.data.container.DataContainer;
 import supermarket.main.data.response.ResponseCategory;
 import supermarket.main.data.response.ResponseCity;
 import supermarket.main.data.response.ResponseReservation;

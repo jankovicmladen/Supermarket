@@ -45,7 +45,7 @@ public class GsonReguest<T> extends Request<T> {
 
         try {
             String json = new String(response.data,
-                    HttpHeaderParser.parseCharset(response.headers)); //daje string json od responsa, response data - podaic, drugi parametar je charset koji je def u responsu
+                    HttpHeaderParser.parseCharset(response.headers)); //daje string json od responsa, response  - podaic, drugi parametar je charset koji je def u responsu
 
             return Response.success(mGson.fromJson(json, mClass),
                     HttpHeaderParser.parseCacheHeaders(response));

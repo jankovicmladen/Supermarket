@@ -1,9 +1,11 @@
-package supermarket.main.data;
+package supermarket.main.data.data;
+
+import java.io.Serializable;
 
 /**
  * Created by cubesschool2 on 9/19/16.
  */
-public class DataProduct {
+public class DataProduct implements Serializable{
     public String id;
     public String rate;
     public String name;
@@ -23,3 +25,4 @@ public class DataProduct {
     public String thumb330;
 
 }
+

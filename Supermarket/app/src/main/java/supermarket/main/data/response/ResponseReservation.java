@@ -2,7 +2,7 @@ package supermarket.main.data.response;
 
 import java.util.ArrayList;
 
-import supermarket.main.data.DataReservation;
+import supermarket.main.data.data.DataReservation;
 
 /**
  * Created by Mladen on 9/15/2016.

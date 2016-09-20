@@ -35,4 +35,10 @@
     <string name="error_activity">Doslo je do greske!</string>
     <string name="error_internet">Doslo je do greske</string>
     <string name="add">Dodaj u korpu</string>
+    <string name="add2">Dodaj u korpu</string>
+    <string name="cart">Korpa</string>
+    <string name="by">Kupi</string>
+    <string name="buy">Kupi</string>
+    <string name="buyer_information">Podaci o kupcu</string>
+    <string name="address_information">Podaci o adresi</string>
 </resources>

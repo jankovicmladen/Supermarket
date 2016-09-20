@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -27,9 +28,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/first_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_first_name"
                 android:hint="@string/name"
                 android:textColorHint="@color/white"
@@ -53,9 +55,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/last_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_second_name"
                 android:hint="@string/secon_name"
                 android:textColorHint="@color/white"
@@ -79,9 +82,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/email"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_username"
                 android:hint="@string/email"
                 android:textColorHint="@color/white"
@@ -105,13 +109,15 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/password2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_password"
                 android:hint="@string/password"
                 android:textColorHint="@color/white"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="textPassword"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -131,13 +137,15 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/password_retype"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_password_retype"
                 android:hint="@string/password"
                 android:textColorHint="@color/white"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:inputType="textPassword"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -157,9 +165,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/cell_phone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_cell_phone"
                 android:hint="@string/cell_phone"
                 android:textColorHint="@color/white"
@@ -183,9 +192,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/phone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_phone"
                 android:hint="@string/phone"
                 android:textColorHint="@color/white"
@@ -209,9 +219,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/fax"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_fax"
                 android:hint="@string/fax"
                 android:textColorHint="@color/white"
@@ -235,9 +246,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/street"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_street"
                 android:hint="@string/street"
                 android:textColorHint="@color/white"
@@ -261,9 +273,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/number"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_number"
                 android:hint="@string/number"
                 android:textColorHint="@color/white"
@@ -287,9 +300,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/appartment"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_appartment"
                 android:hint="@string/appartment"
                 android:textColorHint="@color/white"
@@ -313,9 +327,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/floor"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_floor"
                 android:hint="@string/floor"
                 android:textColorHint="@color/white"
@@ -339,9 +354,10 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/entrance"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_entrance"
                 android:hint="@string/entrance"
                 android:textColorHint="@color/white"
@@ -363,20 +379,12 @@
                 android:alpha="0.5"
                 android:src="@drawable/home" />
 
-            <!--<supermarket.main.customComponents.EditTextFont-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:layout_toRightOf="@id/img_city"-->
-                <!--android:hint="@string/city"-->
-                <!--android:textColorHint="@color/white"-->
-                <!--android:textSize="15sp" />-->
-
             <Spinner
                 android:id="@+id/spinner_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/img_city">
+                android:layout_toRightOf="@id/img_city"
+                android:layout_marginLeft="20dp">
 
             </Spinner>
         </RelativeLayout>
@@ -401,6 +409,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/img_postal_code"
                 android:hint="@string/postal_code"
                 android:textColorHint="@color/white"

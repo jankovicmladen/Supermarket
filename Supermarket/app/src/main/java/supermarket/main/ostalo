@@ -6,3 +6,5 @@ i button posalji
 //za uslove koriscenja dodati
 back dugme u gornjem levom uglu (strelica)
 i web view
+
+Na par mesta u JSON odgovru ima vrednost NEW, mislim da nam ne treba, ali ne moze da se stavi ime promenlive u klasi da bude new.
