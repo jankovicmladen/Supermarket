@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -62,7 +63,8 @@ public class ProductActivity extends AppCompatActivity {
         mBtnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataContainer.cart.add(product.id);
+                DataContainer.addToCart(Integer.parseInt(product.id));
+              //  Toast.makeText(getApplicationContext(),DataContainer.cart.size()+"",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
             }
         });

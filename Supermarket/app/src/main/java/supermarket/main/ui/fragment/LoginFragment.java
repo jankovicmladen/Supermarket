@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -120,15 +119,10 @@ private final String REQUEST_TAG = "Login";
                                 DataContainer.token = response.data.token;
                                 DataContainer.loginToken = response.data.login_token;
                                 Log.i("token", DataContainer.loginToken);
-
-                                Toast.makeText(getActivity().getApplicationContext(),DataContainer.loginToken,Toast.LENGTH_LONG).show();
-
                                 String password = "password";
                                 String message = "tamara";
                                 try {
                                     String encryptedMsg = AESCrypt.encrypt(password, message);
-                                    Toast.makeText(getActivity().getApplicationContext(),encryptedMsg,Toast.LENGTH_LONG).show();
-
 
                                 }catch (GeneralSecurityException e){
                                     //handle error

@@ -155,7 +155,7 @@ public class SigninFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (isValidEmail(mEtEmail.getText().toString())) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Ne tacan email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Netacan email", Toast.LENGTH_SHORT).show();
                 } else {
 
                     String newsletter = "no";

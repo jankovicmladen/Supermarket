@@ -23,6 +23,6 @@ public class DataProduct implements Serializable{
     public String thumb80;
     public String thumb126;
     public String thumb330;
-
+    public int amount;
 }
 

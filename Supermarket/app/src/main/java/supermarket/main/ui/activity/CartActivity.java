@@ -2,15 +2,19 @@ package supermarket.main.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import supermarket.main.R;
+import supermarket.main.adapters.CartRecyclerViewAdapret;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.container.DataContainer;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ImageView mIvBack, mIvBuyerInfo;
     private TextViewFont mTvAddress, mTvCity;
@@ -39,6 +43,13 @@ public class CartActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyeler_view);
 
+        CartRecyclerViewAdapret adapret = new CartRecyclerViewAdapret(getApplicationContext(),DataContainer.cart,this);
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.setAdapter(adapret);
     }
 
     private void addListeners() {
@@ -48,5 +59,10 @@ public class CartActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }
