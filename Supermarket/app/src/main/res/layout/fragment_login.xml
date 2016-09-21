@@ -25,13 +25,14 @@
 
         <supermarket.main.customComponents.EditTextFont
             android:id="@+id/et_username"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/img_username"
             android:hint="@string/username"
             android:textColorHint="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:layout_marginRight="15dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -53,13 +54,15 @@
 
         <supermarket.main.customComponents.EditTextFont
             android:id="@+id/et_password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@id/img_password"
             android:hint="@string/password"
             android:textColorHint="@color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:layout_marginRight="15dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -70,6 +73,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/staylogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

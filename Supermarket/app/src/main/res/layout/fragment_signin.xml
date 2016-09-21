@@ -488,12 +488,15 @@
                 android:layout_marginLeft="20dp">
 
                 <RadioButton
+                    android:id="@+id/male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/male"
                     android:textColor="@color/white"
-                    android:textSize="15sp"/>
+                    android:textSize="15sp"
+                    android:checked="true"/>
                 <RadioButton
+                    android:id="@+id/female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/female"
@@ -546,6 +549,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/et_pib"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -573,6 +577,7 @@
                 android:src="@drawable/home" />
 
             <supermarket.main.customComponents.EditTextFont
+                android:id="@+id/et_company_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -600,6 +605,7 @@
                 android:src="@drawable/mail" />
 
             <CheckBox
+                android:id="@+id/newsletter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

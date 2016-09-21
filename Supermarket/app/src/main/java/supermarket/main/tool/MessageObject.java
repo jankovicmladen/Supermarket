@@ -22,12 +22,14 @@ public class MessageObject {
     public interface OnMessageClickListener{
         void onClick();
     }
+
     public MessageObject(int stringResource, int time, int type, OnMessageClickListener listener) {
         this.stringResource = stringResource;
         this.time = time;
         this.type = type;
         this.listener = listener;
     }
+
     public MessageObject() {
         this.stringResource = R.string.error_internet;
         this.time = 5000;
@@ -35,5 +37,10 @@ public class MessageObject {
         this.listener = null;
     }
 
-
+    public MessageObject(int stringResource, int type){
+        this.stringResource = stringResource;
+        this.type = type;
+        this.time = 3000;
+        this.listener = null;
+    }
 }

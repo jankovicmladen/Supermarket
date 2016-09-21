@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SwitchCompat;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -46,23 +47,22 @@ public class SigninFragment extends Fragment {
     private EditTextFont mEtUsser;
     private EditTextFont mEtSurname;
     private EditTextFont mEtPassword;
-    private EditTextFont mEtconfirmPassword;
+    private EditTextFont mEtConfirmPassword;
     private EditTextFont mEtEmail;
     private EditTextFont mEtPhone;
     private EditTextFont mEtCellPhone;
     private EditTextFont mEtFax;
     private EditTextFont mEtStreet;
     private EditTextFont mEtPib;
-    private EditTextFont mEtFirm;
-    private EditTextFont mEtGender;
-    private EditTextFont mEtBirth;
+    private EditTextFont mEtCompanyName;
+    private RadioButton mRbMale;
+    private RadioButton mRbFemale;
+    private EditTextFont mEtBirthday_day, mEtBirthday_month, mEtBirthday_year;
     private EditTextFont mEtPostCode;
-    private EditTextFont mEtCity;
     private EditTextFont mEtEntrency;
     private EditTextFont mEtFlor;
     private EditTextFont mEtAppartment;
     private EditTextFont mEtNumber;
-    private Switch switchLegacy;
     private Button buutonContiune;
     private CheckBox mCbNewsletter;
 
@@ -93,13 +93,8 @@ public class SigninFragment extends Fragment {
     private void iniComponents() {
         mSpinnerCity = (Spinner) mView.findViewById(R.id.spinner_city);
 
-//        ArrayAdapter<String> ciyAdapter = new ArrayAdapter(getActivity().getApplicationContext(),
-//                android.R.layout.simple_spinner_item, DataContainer.cityToString(DataContainer.cities));
-//
-//        ciyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         SpinnerAdapter ciyAdapter = new supermarket.main.adapters.SpinnerAdapter(getActivity().getApplicationContext(),
-                R.layout.simple_spinner_item,DataContainer.cities);
+                R.layout.simple_spinner_item, DataContainer.cities);
         mSpinnerCity.setAdapter(ciyAdapter);
 
         mSwIsCompany = (SwitchCompat) mView.findViewById(R.id.isCompany);
@@ -110,7 +105,7 @@ public class SigninFragment extends Fragment {
         mEtUsser = (EditTextFont) mView.findViewById(R.id.first_name);
         mEtSurname = (EditTextFont) mView.findViewById(R.id.last_name);
         mEtPassword = (EditTextFont) mView.findViewById(R.id.password2);
-        mEtconfirmPassword = (EditTextFont) mView.findViewById(R.id.password_retype);
+        mEtConfirmPassword = (EditTextFont) mView.findViewById(R.id.password_retype);
         mEtEmail = (EditTextFont) mView.findViewById(R.id.email);
         mEtPhone = (EditTextFont) mView.findViewById(R.id.phone);
         mEtCellPhone = (EditTextFont) mView.findViewById(R.id.cell_phone);
@@ -120,18 +115,16 @@ public class SigninFragment extends Fragment {
         mEtAppartment = (EditTextFont) mView.findViewById(R.id.appartment);
         mEtFlor = (EditTextFont) mView.findViewById(R.id.floor);
         mEtEntrency = (EditTextFont) mView.findViewById(R.id.entrance);
-        mEtCity = (EditTextFont) mView.findViewById(R.id.city);
+
         mEtPostCode = (EditTextFont) mView.findViewById(R.id.postal_code);
-        mEtBirth = (EditTextFont) mView.findViewById(R.id.day);
-        // mEtGender=(EditTextFont)mView.findViewById(R.id.textViewGender);
-        //mEtFirm=(EditTextFont)mView.findViewById(R.id.textViewFirm);
-        // mEtPib=(EditTextFont)mView.findViewById(R.id.textViewPib);
-
-
-        //mCbNewsletter=(CheckBox)view.findViewById(R.id.checkBox);
-
-        //switchLegacy=(Switch)view.findViewById(R.id.switchLegacy);
-
+        mEtBirthday_day = (EditTextFont) mView.findViewById(R.id.day);
+        mEtBirthday_month = (EditTextFont) mView.findViewById(R.id.month);
+        mEtBirthday_year = (EditTextFont) mView.findViewById(R.id.year);
+        mRbMale = (RadioButton) mView.findViewById(R.id.male);
+        mRbFemale = (RadioButton) mView.findViewById(R.id.female);
+        mEtCompanyName = (EditTextFont) mView.findViewById(R.id.et_company_name);
+        mEtPib = (EditTextFont) mView.findViewById(R.id.et_pib);
+        mCbNewsletter = (CheckBox)mView.findViewById(R.id.newsletter);
         buutonContiune = (Button) mView.findViewById(R.id.btn_nastavi);
 
 
@@ -154,9 +147,9 @@ public class SigninFragment extends Fragment {
         buutonContiune.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValidEmail(mEtEmail.getText().toString())) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Netacan email", Toast.LENGTH_SHORT).show();
-                } else {
+//                if (isValidEmail(mEtEmail.getText().toString())) {
+//                    Toast.makeText(getActivity().getApplicationContext(), "Netacan email", Toast.LENGTH_SHORT).show();
+//                } else {
 
                     String newsletter = "no";
                     if (mCbNewsletter.isChecked()) {
@@ -165,31 +158,59 @@ public class SigninFragment extends Fragment {
 
                     user = new DataUser();
 
-                    final String pass = mEtconfirmPassword.getText().toString();
+                    final String pass = mEtConfirmPassword.getText().toString();
                     user.name = mEtUsser.getText().toString();
                     user.surname = mEtSurname.getText().toString();
                     user.password = mEtPassword.getText().toString();
+                    user.passworeRetype = mEtConfirmPassword.getText().toString();
                     user.email = mEtEmail.getText().toString();
                     user.phone = mEtPhone.getText().toString();
                     user.cellphone = mEtCellPhone.getText().toString();
                     user.fax = mEtFax.getText().toString();
                     user.street = mEtStreet.getText().toString();
                     user.number = mEtNumber.getText().toString();
-                    user.flor = mEtFlor.getText().toString();
-                    user.entrecy = mEtEntrency.getText().toString();
-                    user.city = mEtCity.getText().toString();
+                    user.floor = mEtFlor.getText().toString();
+                    user.entrance = mEtEntrency.getText().toString();
+
+                    user.city = mSpinnerCity.getSelectedItem().toString();
+
                     user.appartment = mEtAppartment.getText().toString();
                     user.postalcode = mEtPostCode.getText().toString();
-                    user.birth = mEtBirth.getText().toString();
-                    user.gender = mEtGender.getText().toString();
-                    user.firm = mEtPostCode.getText().toString();
-                    user.pib = mEtBirth.getText().toString();
-                    user.newsletter = newsletter;
+                    user.birthday_day = mEtBirthday_day.getText().toString();
+                    user.birthday_month = mEtBirthday_month.getText().toString();
+                    user.birthday_year = mEtBirthday_year.getText().toString();
 
-                    //  LoginActivity.mViewPager.setCurrentItem(0);
-                    postNewUser(getActivity().getApplicationContext(), user, DataContainer.TOKEN);
+                    if (mRbMale.isChecked()) {
+                        user.gender = "1";
+                    } else if (mRbFemale.isChecked()) {
+                        user.gender = "2";
+                    }
+
+                    if(mSwIsCompany.isChecked()){
+                        user.user_type = "company";
+                    }else{
+                        user.user_type = "buyer";
+                    }
+
+                    user.company_name= mEtCompanyName.getText().toString();
+                    user.pib = mEtPib.getText().toString();
+
+                    if (mCbNewsletter.isChecked()){
+                        user.newsletter = "1";
+                    }else {
+                        user.newsletter = "0";
+                    }
+
+                   postNewUser(getActivity().getApplicationContext(), user, DataContainer.TOKEN);
+
+//                    Log.i("user data", user.name+ " " + user.surname+ " " + user.password+ " " + user.passworeRetype+ " " +
+//                    user.cellphone+ " " + user.phone+ " " + user.fax+ " " + user.street+ " " +
+//                    user.number+ " " + user.appartment+ " " + user.floor+ " " + user.entrance+ " " +
+//                    user.city+ " " + user.postalcode+ " newsletter = " + user.newsletter+ " " + user.birthday_day+ " " +
+//                    user.birthday_month+ " " + user.birthday_year+ " gender = " + user.gender+ " user type = " + user.user_type+ " " +
+//                            user.company_name+ " " +user.pib);
                 }
-            }
+          //  }
         });
     }
 
@@ -198,13 +219,13 @@ public class SigninFragment extends Fragment {
         return pattern.matcher(email).matches();
     }
 
-    public static void postNewUser(final Context context, final DataUser user, final String token) {
+    public static void postNewUser(final Context context,final DataUser user, final String token) {
 
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest sr = new StringRequest(Request.Method.POST, Constant.SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.i("odgovor",response);
                 Toast.makeText(context, "radi" + response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
@@ -216,20 +237,20 @@ public class SigninFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("first_name", "Mladen");
-                params.put("last_name", "Jankovic");
-                params.put("email", "mladen.ns@gmail.com");
-                params.put("password", "mladen");
-                params.put("password_retype", "mladen");
-                params.put("cell_phone", "32423423");
-                params.put("phone", "435345353");
-                params.put("fax", "324234324");
-                params.put("street", "Starog kapetana ww");
-                params.put("number", "1");
-                params.put("apartment", "1");
-                params.put("floor", "1");
-                params.put("entrency", "1");
-                params.put("city", "Beograd");
+                params.put("first_name", user.name);
+                params.put("last_name", user.surname);
+                params.put("email", user.email);
+                params.put("password", user.password);
+                params.put("password_retype", user.passworeRetype);
+                params.put("cell_phone", user.cellphone);
+                params.put("phone", user.phone);
+                params.put("fax", user.fax);
+                params.put("street", user.street);
+                params.put("number", user.number);
+                params.put("apartment", user.appartment);
+                params.put("floor", user.floor);
+                params.put("entrency", user.entrance);
+                params.put("city", user.city);
                 params.put("postal_code", "" + 11250);
                 params.put("newsletter", "" + 0);
                 params.put("day", "" + 15);
@@ -240,7 +261,6 @@ public class SigninFragment extends Fragment {
                 params.put("company_name", "");
                 params.put("pib", "");
                 params.put("token", token);
-
 
                 return params;
             }

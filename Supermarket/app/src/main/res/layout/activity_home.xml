@@ -41,7 +41,9 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/recyeler_view"
         android:layout_below="@+id/layout"
         android:layout_width="match_parent"

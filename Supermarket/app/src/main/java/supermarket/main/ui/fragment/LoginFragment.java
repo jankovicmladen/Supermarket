@@ -1,6 +1,7 @@
 package supermarket.main.ui.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,19 +29,27 @@ import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseUser;
 import supermarket.main.networking.DataLoader;
 import supermarket.main.networking.GsonReguest;
+import supermarket.main.tool.BusProvider;
+import supermarket.main.tool.MessageObject;
 import supermarket.main.ui.activity.ForgotPasswordActivity;
 import supermarket.main.ui.activity.HomeActivity;
 
 
 public class LoginFragment extends Fragment {
 
-private final String REQUEST_TAG = "Login";
+    private final String REQUEST_TAG = "Login";
+    public static final String PREFS_NAME = "login";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String STAY_LOGIN = "staylogin";
 
     private TextViewFont mTvForgotPassword;
     private View mRootView;
 
     private EditTextFont mEtUsername;
     private EditTextFont mEtPassword;
+
+    private CheckBox mCbStayLogin;
 
     private Button mBtnLogin;
 
@@ -69,18 +79,17 @@ private final String REQUEST_TAG = "Login";
     }
 
 
-
-
     private void iniComponents() {
         mTvForgotPassword = (TextViewFont) mRootView.findViewById(R.id.zaboravljena_lozinka);
 
         mEtUsername = (EditTextFont) mRootView.findViewById(R.id.et_username);
         mEtPassword = (EditTextFont) mRootView.findViewById(R.id.et_password);
+        mCbStayLogin = (CheckBox) mRootView.findViewById(R.id.staylogin);
 
         mBtnLogin = (Button) mRootView.findViewById(R.id.btn_nastavi);
     }
 
-    private void addListeners(){
+    private void addListeners() {
         mTvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +106,7 @@ private final String REQUEST_TAG = "Login";
 
                         DataContainer.products = response.data.results;
                         startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+                        getActivity().finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -119,16 +129,27 @@ private final String REQUEST_TAG = "Login";
                                 DataContainer.token = response.data.token;
                                 DataContainer.loginToken = response.data.login_token;
                                 Log.i("token", DataContainer.loginToken);
-                                String password = "password";
-                                String message = "tamara";
-                                try {
-                                    String encryptedMsg = AESCrypt.encrypt(password, message);
 
-                                }catch (GeneralSecurityException e){
+                                try {
+                                    String encryptedMsg = AESCrypt.encrypt(Constant.PASSWORD, mEtPassword.getText().toString());
+                                    SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+                                    SharedPreferences.Editor editor = settings.edit();
+                                    editor.putString(USERNAME, mEtUsername.getText().toString());
+                                    editor.putString(PASSWORD, encryptedMsg);
+                                    if (mCbStayLogin.isChecked()) {
+                                        editor.putBoolean(STAY_LOGIN, true);
+                                    }else {
+                                        editor.putBoolean(STAY_LOGIN,false);
+                                    }
+
+                                    // Commit the edits!
+                                    editor.commit();
+
+                                } catch (GeneralSecurityException e) {
                                     //handle error
                                 }
 
-                                DataLoader.addRequest(getActivity().getApplicationContext(),responseProducts ,REQUEST_TAG);
+                                DataLoader.addRequest(getActivity().getApplicationContext(), responseProducts, REQUEST_TAG);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -141,8 +162,8 @@ private final String REQUEST_TAG = "Login";
 
                         Map<String, String> params = new HashMap<>();
 
-                        params.put("email","tamaranikolic13@yahoo.com");
-                        params.put("password", "tamara");
+                        params.put("email", mEtUsername.getText().toString());
+                        params.put("password", mEtPassword.getText().toString());
                         params.put("token", DataContainer.TOKEN);
 
                         return params;
@@ -150,13 +171,8 @@ private final String REQUEST_TAG = "Login";
                 };
 
                 DataLoader.addRequest(getActivity().getApplicationContext(), gsonReguest, REQUEST_TAG);
-
-
-
-
             }
         });
-
-
     }
+
 }
