@@ -65,7 +65,7 @@ public class ProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DataContainer.addToCart(Integer.parseInt(product.id));
               //  Toast.makeText(getApplicationContext(),DataContainer.cart.size()+"",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+
             }
         });
 

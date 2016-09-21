@@ -9,6 +9,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
+
 import supermarket.main.R;
 import supermarket.main.constant.Constant;
 import supermarket.main.data.container.DataContainer;
@@ -36,6 +38,8 @@ public class StartActivity extends ActivityWithMessage {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DataContainer.cart = new ArrayList<>();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

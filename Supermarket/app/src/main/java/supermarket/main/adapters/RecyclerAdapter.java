@@ -37,7 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.layout_product_item, parent, false);
+        View contactView = inflater.inflate(R.layout.item_product, parent, false);
 
         // Return a new holder instance
         ViewHolder viewHolder = new ViewHolder(contactView);
@@ -76,6 +76,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public TextViewFont title;
         public TextViewFont price;
         public ImageView image;
+        public ImageView add;
 
 
         public ViewHolder(View itemView) {
@@ -84,8 +85,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             title = (TextViewFont) itemView.findViewById(R.id.product_title);
             price = (TextViewFont) itemView.findViewById(R.id.product_price);
             image = (ImageView) itemView.findViewById(R.id.image);
-
+            image.setId(R.id.image);
+            add = (ImageView) itemView.findViewById(R.id.add);
+            add.setId(R.id.add);
             image.setOnClickListener(this);
+            add.setOnClickListener(this);
         }
 
         @Override

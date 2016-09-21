@@ -28,7 +28,7 @@ public class DataContainer {
 
     public static ArrayList<DataProduct> products;
     public static DataSingleProduct product;
-    public static ArrayList<DataProduct> cart = new ArrayList<>();
+    public static ArrayList<DataProduct> cart;// = new ArrayList<>();
 
     public static ArrayList<String> cityToString(ArrayList<DataCity> cities) {
         ArrayList<String> result = new ArrayList<>();
@@ -49,6 +49,8 @@ public class DataContainer {
                 productForCart = product;
             }
         }
+
+
         if (productForCart != null) {
             int stock = Integer.parseInt(productForCart.stock);
             if (stock >= 1) {
