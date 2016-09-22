@@ -29,7 +29,7 @@ public class DataContainer {
 
     public static ArrayList<DataProduct> products;
     public static DataSingleProduct product;
-    public static ArrayList<DataProduct> cart;// = new ArrayList<>();
+    public static ArrayList<DataProduct> cart = new ArrayList<>();
 
     public static Double totalPrice = 0.0;
 
@@ -44,6 +44,7 @@ public class DataContainer {
     }
 
 
+    private static boolean tmp2 = false;
 
     public static boolean addToCart(int id) {
         DataProduct productForCart = null;
@@ -54,11 +55,25 @@ public class DataContainer {
             }
         }
 
+        if(cart.size()==0){
+            tmp2=false;
+        }
+
+        for (DataProduct product : cart) {
+            if (Integer.parseInt(product.id) == id) {
+                productForCart = product;
+                tmp2=true;
+            }else {
+                tmp2=false;
+            }
+        }
 
         if (productForCart != null) {
             int stock = Integer.parseInt(productForCart.stock);
             if (stock >= 1) {
-                if(cart.contains(productForCart)){
+              //  if(cart.contains(productForCart)){
+                if(tmp2){
+
                     productForCart.amount++;
                     totalPrice += Double.parseDouble(productForCart.price);
                     if(CartActivity.mTvTotalPrice!=null) {
@@ -93,9 +108,17 @@ public class DataContainer {
                 productForCart = product;
             }
         }
+        for (DataProduct product : cart) {
 
+            if (product.id.equalsIgnoreCase(id)) {
+                productForCart = product;
+                tmp2=true;
+            }else {
+                tmp2=false;
+            }
+        }
         if(productForCart!=null){
-            if (cart.contains(productForCart)){
+            if (tmp2){
                 int stock = Integer.parseInt(productForCart.stock);
                 if(productForCart.amount>1){
                     productForCart.amount--;
