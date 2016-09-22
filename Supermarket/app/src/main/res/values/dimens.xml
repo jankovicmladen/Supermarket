@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_message_height">100dp</dimen>
     <dimen name="text_margin_left">18sp</dimen>
+    <dimen name="text_size_button">20sp</dimen>
+    <dimen name="text_size_title">23sp</dimen>
 </resources>

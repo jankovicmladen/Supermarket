@@ -10,6 +10,7 @@ import supermarket.main.data.data.DataProduct;
 import supermarket.main.data.data.DataReservation;
 import supermarket.main.data.data.DataSingleProduct;
 import supermarket.main.data.response.ResponseDataUser;
+import supermarket.main.ui.activity.CartActivity;
 
 /**
  * Created by cubesschool2 on 9/9/16.
@@ -30,6 +31,8 @@ public class DataContainer {
     public static DataSingleProduct product;
     public static ArrayList<DataProduct> cart;// = new ArrayList<>();
 
+    public static Double totalPrice = 0.0;
+
     public static ArrayList<String> cityToString(ArrayList<DataCity> cities) {
         ArrayList<String> result = new ArrayList<>();
 
@@ -39,6 +42,7 @@ public class DataContainer {
 
         return result;
     }
+
 
 
     public static boolean addToCart(int id) {
@@ -56,9 +60,17 @@ public class DataContainer {
             if (stock >= 1) {
                 if(cart.contains(productForCart)){
                     productForCart.amount++;
+                    totalPrice += Double.parseDouble(productForCart.price);
+                    if(CartActivity.mTvTotalPrice!=null) {
+                        CartActivity.mTvTotalPrice.setText("Ukupno: " + totalPrice);
+                    }
                 }else{
                     productForCart.amount=1;
                     cart.add(productForCart);
+                    totalPrice += Double.parseDouble(productForCart.price);
+                    if(CartActivity.mTvTotalPrice!=null) {
+                        CartActivity.mTvTotalPrice.setText("Ukupno: " + totalPrice);
+                    }
                 }
 
                 //cart.add(productForCart);
@@ -87,12 +99,20 @@ public class DataContainer {
                 int stock = Integer.parseInt(productForCart.stock);
                 if(productForCart.amount>1){
                     productForCart.amount--;
+                    totalPrice -= Double.parseDouble(productForCart.price);
+                    if(CartActivity.mTvTotalPrice!=null) {
+                        CartActivity.mTvTotalPrice.setText("Ukupno: " + totalPrice);
+                    }
                     stock++;
                     productForCart.stock = stock+"";
                     return true;
                 }else {
                     cart.remove(productForCart);
                     productForCart.amount=0;
+                    totalPrice -= Double.parseDouble(productForCart.price);
+                    if(CartActivity.mTvTotalPrice!=null) {
+                        CartActivity.mTvTotalPrice.setText("Ukupno: " + totalPrice);
+                    }
                     stock++;
                     productForCart.stock=stock+"";
                     return true;

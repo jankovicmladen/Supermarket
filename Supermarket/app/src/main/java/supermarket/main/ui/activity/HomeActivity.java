@@ -1,14 +1,21 @@
 package supermarket.main.ui.activity;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,6 +35,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private RecyclerView mRecyclerView;
     RecyclerAdapter adapter;
     private ImageView mIvShopingCart;
+    private ImageView mIvMenu;
+    private ListView mLvMenu;
+    private DrawerLayout mDrawerLayout;
+    Animation animation;// = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_image);
+    ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +60,18 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
             }
         });
+
+        mIvMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(mLvMenu);
+            }
+        });
+
     }
 
     private void iniComponents() {
+        animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_image);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyeler_view);
 
         StaggeredGridLayoutManager gridLayoutManager =
@@ -61,11 +82,23 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mRecyclerView.setAdapter(adapter);
 
         mIvShopingCart = (ImageView) findViewById(R.id.shoping_cart);
+        mIvMenu = (ImageView) findViewById(R.id.menu);
+        mLvMenu = (ListView) findViewById(R.id.left_drawer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.add,R.string.add ){
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                mIvMenu.startAnimation(animation);
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getApplicationContext(), view.getId() + "", Toast.LENGTH_LONG).show();
         if (view.getId() == R.id.image) {
             GsonReguest<ResponseSingleProduct> reguest = new GsonReguest<ResponseSingleProduct>(
                     Constant.SINGLE_PRODUCT + "&id=" + adapter.getItemId(position) + "",
@@ -88,8 +121,15 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
             DataLoader.addRequest(getApplicationContext(), reguest, REQUEST_TAG);
         } else if (view.getId() == R.id.add) {
-            Toast.makeText(getApplicationContext(), " + ", Toast.LENGTH_LONG).show();
             DataContainer.addToCart((int) adapter.getItemId(position));
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 }

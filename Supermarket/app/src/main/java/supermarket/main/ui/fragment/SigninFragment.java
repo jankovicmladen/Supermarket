@@ -203,12 +203,6 @@ public class SigninFragment extends Fragment {
 
                    postNewUser(getActivity().getApplicationContext(), user, DataContainer.TOKEN);
 
-//                    Log.i("user data", user.name+ " " + user.surname+ " " + user.password+ " " + user.passworeRetype+ " " +
-//                    user.cellphone+ " " + user.phone+ " " + user.fax+ " " + user.street+ " " +
-//                    user.number+ " " + user.appartment+ " " + user.floor+ " " + user.entrance+ " " +
-//                    user.city+ " " + user.postalcode+ " newsletter = " + user.newsletter+ " " + user.birthday_day+ " " +
-//                    user.birthday_month+ " " + user.birthday_year+ " gender = " + user.gender+ " user type = " + user.user_type+ " " +
-//                            user.company_name+ " " +user.pib);
                 }
           //  }
         });
@@ -249,17 +243,17 @@ public class SigninFragment extends Fragment {
                 params.put("number", user.number);
                 params.put("apartment", user.appartment);
                 params.put("floor", user.floor);
-                params.put("entrency", user.entrance);
+                params.put("entrance", user.entrance);
                 params.put("city", user.city);
-                params.put("postal_code", "" + 11250);
-                params.put("newsletter", "" + 0);
-                params.put("day", "" + 15);
-                params.put("year", "" + 1993);
-                params.put("month", "" + 1);
-                params.put("gender", "" + 1);
-                params.put("user_type", "buyer");
-                params.put("company_name", "");
-                params.put("pib", "");
+                params.put("postal_code", user.postalcode);
+                params.put("newsletter", user.newsletter);
+                params.put("day", user.birthday_day);
+                params.put("year", user.birthday_month);
+                params.put("month", user.birthday_year);
+                params.put("gender", user.gender);
+                params.put("user_type", user.user_type);
+                params.put("company_name", user.company_name);
+                params.put("pib", user.pib);
                 params.put("token", token);
 
                 return params;

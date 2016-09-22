@@ -140,5 +140,5 @@
         android:text="@string/add2"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:textSize="@dimen/text_size_button" />
 </RelativeLayout>

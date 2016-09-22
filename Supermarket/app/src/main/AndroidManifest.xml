@@ -25,7 +25,9 @@
         <activity android:name=".ui.activity.ForgotPasswordActivity" />
         <activity android:name=".ui.activity.HomeActivity" />
         <activity android:name=".ui.activity.ProductActivity" />
-        <activity android:name=".ui.activity.CartActivity"></activity>
+        <activity android:name=".ui.activity.CartActivity" />
+        <activity android:name=".ui.activity.AddressActivity" />
+        <activity android:name=".ui.activity.BuyingActivity"></activity>
     </application>
 
 </manifest>

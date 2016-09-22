@@ -41,4 +41,7 @@
     <string name="buy">Kupi</string>
     <string name="buyer_information">Podaci o kupcu</string>
     <string name="address_information">Podaci o adresi</string>
+    <string name="address">Adresa</string>
+    <string name="verify_address">Potvrdi adresu</string>
+    <string name="final_buying">Konačan račun</string>
 </resources>
