@@ -52,6 +52,7 @@ public class StartActivity extends ActivityWithMessage {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_start_page);
 
         SharedPreferences settings = getSharedPreferences(LoginFragment.PREFS_NAME, 0);
         username = settings.getString(LoginFragment.USERNAME, "");
@@ -59,19 +60,12 @@ public class StartActivity extends ActivityWithMessage {
         staylogin = settings.getBoolean(LoginFragment.STAY_LOGIN,false);
 
         try {
-            password_dec = AESCrypt.decrypt(Constant.PASSWORD, password);
+            if(!password.equalsIgnoreCase("")) {
+                password_dec = AESCrypt.decrypt(Constant.PASSWORD, password);
+            }
         }catch (GeneralSecurityException e){
             //handle error - could be due to incorrect password or tampered encryptedMsg
         }
-
-
-        //DataContainer.cart = new ArrayList<>();
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        setContentView(R.layout.activity_start_page);
 
         mRequestToken = new GsonReguest<ResponseToken>(Constant.GRT_TOKEN_URL + "?username=" + Constant.APPLICATION_USERNAME +
                 "&password=" + Constant.APPLICATION_PASSWORD,
@@ -199,6 +193,14 @@ public class StartActivity extends ActivityWithMessage {
     protected void onDestroy() {
         super.onDestroy();
         DataLoader.cancelRequest(getApplicationContext(), REQUEST_TAG);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            //    WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     private synchronized boolean checkOK(int param) {

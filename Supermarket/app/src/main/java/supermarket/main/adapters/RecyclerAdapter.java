@@ -22,6 +22,7 @@ import supermarket.main.data.data.DataProduct;
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
+    public static boolean enabled = false;
     private Context context;
     private ArrayList<DataProduct> products;
     private AdapterView.OnItemClickListener onItemClickListener;

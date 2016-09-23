@@ -37,28 +37,56 @@ public class ActivityWithMessage extends AppCompatActivity {
         mInflater = LayoutInflater.from(getApplicationContext());
 //        mMessageView = mInflater.inflate(R.layout.layout_message, null, false);
 
-        animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.show_error_anim);
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_error_anim);
 
 
         busEventListener = new Object() {
             @Subscribe
             public void onMessageShow(MessageObject messageObject) {
-                Toast.makeText(getApplicationContext(), messageObject.stringResource, Toast.LENGTH_LONG).show();
                 if (mMessageView == null) {
                     mMessageView = mInflater.inflate(R.layout.layout_message, viewGroup, false);
                     mTvMessage = (TextView) mMessageView.findViewById(R.id.text);
                 }
 
 
-                animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.show_error_anim);
-                animation2 = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.hide_error_message);
+                animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.show_error_anim);
+                animation2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.hide_error_message);
                 mMessageView.startAnimation(animation);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        disableEnableControls(false,viewGroup);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
                 mTvMessage.setText(messageObject.stringResource);
 
+
+//                boolean tmp = false;
+//                for(int i =0; i<viewGroup.getChildCount();i++){
+//                    if(viewGroup.getChildAt(i).getId() == mMessageView.getId()){
+//                        tmp = true;
+//                    }
+//                }
+
+                //  if(!tmp){
                 viewGroup.addView(mMessageView);
+                //   }
+
                 viewGroup.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+
+
                         mMessageView.startAnimation(animation2);
                         animation2.setAnimationListener(new Animation.AnimationListener() {
                             @Override
@@ -68,7 +96,10 @@ public class ActivityWithMessage extends AppCompatActivity {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
-                                mMessageView.setVisibility(View.GONE);
+
+                                viewGroup.removeView(mMessageView);
+                                disableEnableControls(true,viewGroup);
+
                             }
 
                             @Override
@@ -78,7 +109,7 @@ public class ActivityWithMessage extends AppCompatActivity {
                         });
                         //mMessageView.setVisibility(View.GONE);
                     }
-                },messageObject.time);
+                }, messageObject.time);
             }
         };
     }
@@ -97,6 +128,14 @@ public class ActivityWithMessage extends AppCompatActivity {
         super.onPause();
         BusProvider.getInstance().unregister(busEventListener);
     }
-
+    private void disableEnableControls(boolean enable, ViewGroup vg){
+        for (int i = 0; i < vg.getChildCount(); i++){
+            View child = vg.getChildAt(i);
+            child.setEnabled(enable);
+            if (child instanceof ViewGroup){
+                disableEnableControls(enable, (ViewGroup) child);
+            }
+        }
+    }
 
 }

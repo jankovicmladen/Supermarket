@@ -4,11 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import supermarket.main.R;
+import supermarket.main.adapters.SpinnerAdapter;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.data.container.DataContainer;
 
@@ -18,6 +24,7 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
     private EditTextFont mEtStreet, mEtNumber, mEtApartment, mEtFloor;
     private EditTextFont mEtEntrance, mEtCity, mEtPostalCode;
     private Button mBtnVerifyAddress;
+    private Spinner mSpNacinPlacanja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,7 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
 
         iniComponents();
         addListeners();
+        addAdapterToSpinner();
     }
 
     private void addListeners() {
@@ -40,7 +48,7 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
                 DataContainer.user.city = mEtCity.getText().toString();
                 DataContainer.user.postalcode = mEtPostalCode.getText().toString();
 
-                startActivityForResult(new Intent(getApplicationContext(),BuyingActivity.class),REQUEST_EXIT);
+                startActivityForResult(new Intent(getApplicationContext(), BuyingActivity.class), REQUEST_EXIT);
             }
         });
     }
@@ -68,7 +76,11 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
         mEtPostalCode.setText(DataContainer.user.postalcode);
 
         mBtnVerifyAddress = (Button) findViewById(R.id.btn_verify_address);
+
+        mSpNacinPlacanja = (Spinner) findViewById(R.id.spinner_nacin_placanja);
+
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -78,5 +90,14 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
 
             }
         }
+    }
+
+    private void addAdapterToSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.nacin_kupovine, R.layout.item_nacin_placanja);
+
+        adapter.setDropDownViewResource(R.layout.item_nacin_placanja2);
+        mSpNacinPlacanja.setAdapter(adapter);
+
     }
 }

@@ -42,6 +42,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:background="@color/dandelion"
         android:text="@string/verify_address"
         android:textAllCaps="false"
@@ -52,8 +53,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout"
-        android:layout_above="@id/btn_verify_address">
+        android:layout_above="@id/btn_verify_address"
+        android:layout_below="@id/layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -211,11 +212,11 @@
                     android:src="@drawable/home" />
 
                 <!--<Spinner-->
-                    <!--android:id="@+id/spinner_city"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:layout_toRightOf="@id/img_city">-->
+                <!--android:id="@+id/spinner_city"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_toRightOf="@id/img_city">-->
 
                 <!--</Spinner>-->
 
@@ -258,6 +259,31 @@
                     android:textSize="15sp" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/nacin_placanja"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.5" />
+
+                <Spinner
+                    android:id="@+id/spinner_nacin_placanja"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@id/nacin_placanja">
+
+                </Spinner>
+
+
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>

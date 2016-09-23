@@ -44,4 +44,12 @@
     <string name="address">Adresa</string>
     <string name="verify_address">Potvrdi adresu</string>
     <string name="final_buying">Konačan račun</string>
+    <string name="added">Proizvod je dodat u korpu</string>
+
+    <string-array name="nacin_kupovine">
+        <item>Novac u gotovini</item>
+        <item>Cekovima gradjana</item>
+        <item>Platnim karticama</item>
+        <item>Ziralno placanje</item>
+    </string-array>
 </resources>

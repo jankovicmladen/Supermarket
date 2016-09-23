@@ -28,8 +28,11 @@ import supermarket.main.data.response.ResponseSingleProduct;
 import supermarket.main.networking.DataLoader;
 import supermarket.main.networking.GsonReguest;
 import supermarket.main.adapters.RecyclerAdapter;
+import supermarket.main.tool.BusProvider;
+import supermarket.main.tool.MessageObject;
 
-public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class HomeActivity extends ActivityWithMessage
+        implements AdapterView.OnItemClickListener {
 
     private final String REQUEST_TAG = "load_single_product";
     private RecyclerView mRecyclerView;
@@ -42,10 +45,9 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
 
         iniComponents();
 
@@ -57,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mIvShopingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
             }
         });
@@ -71,7 +74,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void iniComponents() {
-        animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_image);
+        animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_image);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyeler_view);
 
         StaggeredGridLayoutManager gridLayoutManager =
@@ -86,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mLvMenu = (ListView) findViewById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.add,R.string.add ){
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.add, R.string.add) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -121,9 +124,12 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
             DataLoader.addRequest(getApplicationContext(), reguest, REQUEST_TAG);
         } else if (view.getId() == R.id.add) {
-            DataContainer.addToCart((int) adapter.getItemId(position));
+            if (DataContainer.addToCart((int) adapter.getItemId(position))) {
+                BusProvider.getInstance().post(new MessageObject(R.string.added,MessageObject.MESSAGE_INFO));
+            }
         }
     }
+
     @Override
     public void onBackPressed() {
         if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
