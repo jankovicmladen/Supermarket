@@ -1,6 +1,7 @@
 package supermarket.main.ui.activity;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +12,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import supermarket.main.R;
 import supermarket.main.adapters.CartRecyclerViewAdapret;
+import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.container.DataContainer;
+import supermarket.main.data.response.ResponseOrder;
+import supermarket.main.networking.GsonReguest;
 
 public class CartActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -75,4 +87,6 @@ public class CartActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
+
 }

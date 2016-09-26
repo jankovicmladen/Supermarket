@@ -29,6 +29,8 @@ public class Constant {
     public static String PRODUCTS = BASE_URL + "phone-products?token=" + DataContainer.loginToken;
     public static String SINGLE_PRODUCT = BASE_URL + "phone-products-single?token=" + DataContainer.loginToken;
 
+    public static String ORDER = BASE_URL + "phone-order";
+
     //POSTMAN za proveru post metoda
 
 }

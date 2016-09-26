@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import supermarket.main.data.data.DataAddress;
 import supermarket.main.data.data.DataCategory;
 import supermarket.main.data.data.DataCity;
 import supermarket.main.data.data.DataProduct;
@@ -27,6 +28,7 @@ public class DataContainer {
     public static String token;
     public static String loginToken;
 
+    public static DataAddress address;
     public static ArrayList<DataProduct> products;
     public static DataSingleProduct product;
     public static ArrayList<DataProduct> cart = new ArrayList<>();

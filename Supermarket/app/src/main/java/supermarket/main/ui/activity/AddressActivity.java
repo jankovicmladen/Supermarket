@@ -3,10 +3,15 @@ package supermarket.main.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -25,6 +30,8 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
     private EditTextFont mEtEntrance, mEtCity, mEtPostalCode;
     private Button mBtnVerifyAddress;
     private Spinner mSpNacinPlacanja;
+    public static String nacinPlacanja = "";
+    public static int newAddress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +44,44 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
     }
 
     private void addListeners() {
+
+
         mBtnVerifyAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataContainer.user.address = mEtStreet.getText().toString();
-                DataContainer.user.street_number = mEtNumber.getText().toString();
-                DataContainer.user.appartment = mEtApartment.getText().toString();
-                DataContainer.user.floor = mEtFloor.getText().toString();
-                DataContainer.user.entrance = mEtEntrance.getText().toString();
-                DataContainer.user.city = mEtCity.getText().toString();
-                DataContainer.user.postalcode = mEtPostalCode.getText().toString();
+
+
+                if (DataContainer.user.address != mEtStreet.getText().toString()) {
+                    DataContainer.user.address = mEtStreet.getText().toString();
+                    newAddress = 1;
+                }
+                if (DataContainer.user.street_number != mEtNumber.getText().toString()) {
+                    DataContainer.user.street_number = mEtNumber.getText().toString();
+                    newAddress = 1;
+                }
+                if (DataContainer.user.appartment != mEtApartment.getText().toString()) {
+                    DataContainer.user.appartment = mEtApartment.getText().toString();
+                    newAddress = 1;
+                }
+                if (DataContainer.user.floor != mEtFloor.getText().toString()) {
+                    DataContainer.user.floor = mEtFloor.getText().toString();
+                    newAddress = 1;
+                }
+                if (DataContainer.user.entrance != mEtEntrance.getText().toString()) {
+                    DataContainer.user.entrance = mEtEntrance.getText().toString();
+                    newAddress = 1;
+                }
+                if (DataContainer.user.city != mEtCity.getText().toString()) {
+                    DataContainer.user.city = mEtCity.getText().toString();
+                    newAddress = 1;
+                }
+                if (DataContainer.user.postalcode != mEtPostalCode.getText().toString()) {
+                    DataContainer.user.postalcode = mEtPostalCode.getText().toString();
+                    newAddress = 1;
+                }
+                nacinPlacanja = mSpNacinPlacanja.getSelectedItem().toString();
+
+                Toast.makeText(getApplicationContext(),nacinPlacanja+ " "+ newAddress,Toast.LENGTH_LONG).show();
 
                 startActivityForResult(new Intent(getApplicationContext(), BuyingActivity.class), REQUEST_EXIT);
             }
