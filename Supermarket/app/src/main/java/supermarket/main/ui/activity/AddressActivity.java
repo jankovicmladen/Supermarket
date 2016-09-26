@@ -50,7 +50,22 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View v) {
 
+                mEtNumber.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        
+                    }
 
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
                 if (DataContainer.user.address != mEtStreet.getText().toString()) {
                     DataContainer.user.address = mEtStreet.getText().toString();
                     newAddress = 1;
@@ -81,7 +96,7 @@ public class AddressActivity extends AppCompatActivity implements Serializable {
                 }
                 nacinPlacanja = mSpNacinPlacanja.getSelectedItem().toString();
 
-                Toast.makeText(getApplicationContext(),nacinPlacanja+ " "+ newAddress,Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), nacinPlacanja + " " + newAddress, Toast.LENGTH_LONG).show();
 
                 startActivityForResult(new Intent(getApplicationContext(), BuyingActivity.class), REQUEST_EXIT);
             }
