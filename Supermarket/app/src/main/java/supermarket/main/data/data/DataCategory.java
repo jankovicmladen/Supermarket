@@ -11,8 +11,15 @@ public class DataCategory {
     public String name;
     public ArrayList<DataCategory> subcategories;
 
+    public DataCategory(String name){
+        this.name = name;
+        this.subcategories = new ArrayList<>();
+        this.id = "-1";
+    }
+
     @Override
     public String toString() {
         return name + subcategories.toString();
+
     }
 }

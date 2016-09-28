@@ -20,6 +20,7 @@ import java.util.Map;
 import supermarket.main.R;
 import supermarket.main.constant.Constant;
 import supermarket.main.data.container.DataContainer;
+import supermarket.main.data.data.DataCategory;
 import supermarket.main.data.response.ResponseCategory;
 import supermarket.main.data.response.ResponseCity;
 import supermarket.main.data.response.ResponseProducts;
@@ -56,7 +57,7 @@ public class StartActivity extends ActivityWithMessage {
 
         SharedPreferences settings = getSharedPreferences(LoginFragment.PREFS_NAME, 0);
         username = settings.getString(LoginFragment.USERNAME, "");
-        password = settings.getString(LoginFragment.PASSWORD,"");
+        password = settings.getString(LoginFragment.PASSWORD, "");
         staylogin = settings.getBoolean(LoginFragment.STAY_LOGIN,false);
 
         try {
@@ -88,12 +89,18 @@ public class StartActivity extends ActivityWithMessage {
             }
         });
 
+
+        DataContainer.categories = new ArrayList<>();
         mREquestCategory = new GsonReguest<ResponseCategory>(Constant.CATEGORY_URL + "?token=" +
                 DataContainer.TOKEN, Request.Method.GET, ResponseCategory.class,
                 new Response.Listener<ResponseCategory>() {
                     @Override
                     public void onResponse(ResponseCategory response) {
-                        DataContainer.categories = response.data.results;
+                        DataContainer.categories.add(new DataCategory("Home"));
+                        DataContainer.categories.addAll(response.data.results);
+                        DataContainer.categories.add(new DataCategory("Podesavanja"));
+                        DataContainer.categories.add(new DataCategory("Profil"));
+                        DataContainer.categories.add(new DataCategory("Odjavi se"));
                         check++;
                         checkOK(check);
 //
