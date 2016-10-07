@@ -47,6 +47,7 @@
     <string name="added">Proizvod je dodat u korpu</string>
     <string name="error_message">Doslo je do greske. Molim pokusajte kasnije</string>
     <string name="uspesna_kupovina">Čestitamo, Vaša narudzbina je uspešno prosleđena.</string>
+    <string name="izmeni">Izmeni</string>
 
     <string-array name="nacin_kupovine">
         <item>Novac u gotovini</item>

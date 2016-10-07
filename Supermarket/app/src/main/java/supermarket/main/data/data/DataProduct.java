@@ -24,6 +24,7 @@ public class DataProduct implements Serializable{
     public String thumb126;
     public String thumb330;
     public int amount;
+    public boolean favorit = false;
 
 
 }

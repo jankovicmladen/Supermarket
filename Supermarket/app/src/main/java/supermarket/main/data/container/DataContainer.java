@@ -28,6 +28,8 @@ public class DataContainer {
     public static String token;
     public static String loginToken;
 
+    public static ArrayList<Integer> listFavorits;
+
     public static DataAddress address;
     public static ArrayList<DataProduct> products;
     public static DataSingleProduct product;
@@ -148,6 +150,17 @@ public class DataContainer {
         }else {
             return false;
         }
+    }
+
+    public static void setFavorits(ArrayList<Integer> favList){
+        for(DataProduct product : DataContainer.products){
+            for (int i : favList){
+                if(product.id.equalsIgnoreCase(i+"")){
+                    product.favorit = true;
+                }
+            }
+        }
+
     }
 
 }

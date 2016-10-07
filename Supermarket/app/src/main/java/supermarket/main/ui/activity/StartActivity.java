@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,6 +23,7 @@ import supermarket.main.R;
 import supermarket.main.constant.Constant;
 import supermarket.main.data.container.DataContainer;
 import supermarket.main.data.data.DataCategory;
+import supermarket.main.data.response.ResponseAddWishList;
 import supermarket.main.data.response.ResponseCategory;
 import supermarket.main.data.response.ResponseCity;
 import supermarket.main.data.response.ResponseProducts;
@@ -42,6 +45,8 @@ public class StartActivity extends ActivityWithMessage {
     private GsonReguest<ResponseReservation> mRequestReservation;
     private GsonReguest<ResponseUser> mRequestLogin;
     private GsonReguest<ResponseProducts> responseProducts;
+    private GsonReguest<ResponseAddWishList> responseFavorits;
+
     private int chek = 0;
 
     private String username, password, password_dec;
@@ -182,8 +187,9 @@ public class StartActivity extends ActivityWithMessage {
                         Log.i("response", response.data.status);
 
                         DataContainer.products = response.data.results;
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        finish();
+//                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+//                        finish();
+                        DataLoader.addRequest(getApplicationContext(), responseFavorits, REQUEST_TAG);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -192,6 +198,36 @@ public class StartActivity extends ActivityWithMessage {
             }
         }
         );
+
+       responseFavorits = new GsonReguest<ResponseAddWishList>(
+                Constant.URL_FAVOURITES_ADD,
+                Request.Method.POST,
+                ResponseAddWishList.class,
+                new Response.Listener<ResponseAddWishList>() {
+                    @Override
+                    public void onResponse(ResponseAddWishList response) {
+                        DataContainer.listFavorits = response.data.results;
+                        DataContainer.setFavorits(DataContainer.listFavorits);
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"greska",Toast.LENGTH_LONG).show();
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> requestParams = new HashMap<>();
+                requestParams.put("user_id", DataContainer.user.id);
+                requestParams.put("item_id","0");
+                requestParams.put("token",DataContainer.loginToken);
+                return requestParams;
+            }
+        };
+
         DataLoader.addRequest(getApplicationContext(), mRequestToken, REQUEST_TAG);
     }
 

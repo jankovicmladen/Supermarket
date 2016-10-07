@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 
@@ -59,6 +60,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Glide.with(context).load(product.thumb330)
                 .fitCenter()
                 .into(imageView);
+
+        RelativeLayout layoutStar = holder.layoutStar;
+        layoutStar.bringToFront();
+        ImageView star = holder.star;
+        star.bringToFront();
+        if(product.favorit){
+            star.setImageResource(R.drawable.ic_star);
+        }else {
+            star.setImageResource(R.drawable.ic_star_outline);
+        }
     }
 
     @Override
@@ -66,6 +77,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 //        return super.getItemId(position);
         return Long.parseLong(products.get(position).id);
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -78,11 +91,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public TextViewFont price;
         public ImageView image;
         public ImageView add;
+        public ImageView star;
+        public RelativeLayout layoutStar;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            layoutStar = (RelativeLayout) itemView.findViewById(R.id.layout_star);
+            layoutStar.setId(R.id.layout_star);
+            star = (ImageView) itemView.findViewById(R.id.star);
+            star.setId(R.id.star);
             title = (TextViewFont) itemView.findViewById(R.id.product_title);
             price = (TextViewFont) itemView.findViewById(R.id.product_price);
             image = (ImageView) itemView.findViewById(R.id.image);
@@ -91,11 +110,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             add.setId(R.id.add);
             image.setOnClickListener(this);
             add.setOnClickListener(this);
+            layoutStar.setOnClickListener(this);
+            star.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-
             onItemClickListener.onItemClick(null, v, getAdapterPosition(), v.getId());
         }
     }

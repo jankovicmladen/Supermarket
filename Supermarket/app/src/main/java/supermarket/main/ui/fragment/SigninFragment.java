@@ -38,12 +38,11 @@ import supermarket.main.data.data.DataUser;
 
 
 public class SigninFragment extends Fragment {
+    View mView;
 
     SwitchCompat mSwIsCompany;
-    View mView;
     RelativeLayout mPIB, mCompanyName;
     private Spinner mSpinnerCity;
-
     private EditTextFont mEtUsser;
     private EditTextFont mEtSurname;
     private EditTextFont mEtPassword;
@@ -216,6 +215,7 @@ public class SigninFragment extends Fragment {
     public static void postNewUser(final Context context,final DataUser user, final String token) {
 
         RequestQueue queue = Volley.newRequestQueue(context);
+
         StringRequest sr = new StringRequest(Request.Method.POST, Constant.SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

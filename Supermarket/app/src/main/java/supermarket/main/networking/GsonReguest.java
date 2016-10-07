@@ -1,5 +1,7 @@
 package supermarket.main.networking;
 
+import android.util.Log;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -46,7 +48,7 @@ public class GsonReguest<T> extends Request<T> {
         try {
             String json = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers)); //daje string json od responsa, response  - podaic, drugi parametar je charset koji je def u responsu
-
+            Log.v("JSONresponse",json);
             return Response.success(mGson.fromJson(json, mClass),
                     HttpHeaderParser.parseCacheHeaders(response));
 
