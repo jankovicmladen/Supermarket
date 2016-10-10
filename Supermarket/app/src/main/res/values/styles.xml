@@ -14,7 +14,7 @@
         <!-- Active thumb color & Active track color(30% transparency) -->
         <item name="colorControlActivated">@color/dandelion</item>
         <!-- Inactive thumb color -->
-        <item name="colorSwitchThumbNormal">#848484</item>
+        <item name="colorSwitchThumbNormal">@color/colorPrimary</item>
         <!-- Inactive track color(30% transparency) -->
         <item name="android:colorForeground">@color/dandelion</item>
 

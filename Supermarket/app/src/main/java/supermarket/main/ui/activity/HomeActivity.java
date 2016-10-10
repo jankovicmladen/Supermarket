@@ -7,12 +7,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -21,19 +25,24 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import supermarket.main.R;
 import supermarket.main.adapters.MenuAdapter;
 import supermarket.main.constant.Constant;
+import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.container.DataContainer;
 import supermarket.main.data.data.DataCategory;
 import supermarket.main.data.data.DataProduct;
 import supermarket.main.data.response.ResponseAddWishList;
 import supermarket.main.data.response.ResponseCategory;
+import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseSingleProduct;
 import supermarket.main.networking.DataLoader;
 import supermarket.main.networking.GsonReguest;
@@ -47,7 +56,7 @@ public class HomeActivity extends ActivityWithMessage
     private final String REQUEST_TAG = "load_single_product";
     private RecyclerView mRecyclerView;
     RecyclerAdapter adapter;
-    private ImageView mIvShopingCart;
+    private ImageView mIvShopingCart, mIvSearch;
     private ImageView mIvMenu;
     private RelativeLayout mLvMenu;
     private DrawerLayout mDrawerLayout;
@@ -56,8 +65,16 @@ public class HomeActivity extends ActivityWithMessage
 
     private TextViewFont mTvUsenName;
     private TextViewFont mTvUserMail;
+    private EditTextFont mEtSearch;
+    private RelativeLayout mRlSearch;
+    private ImageView mIvSearchDelete;
+    private ProgressBar mPbSearch;
 
     private ExpandableListView mExpandableListView;
+
+    private boolean search = false;
+
+    private ArrayList<DataProduct> list = new ArrayList<>();
 
 
     @Override
@@ -66,12 +83,124 @@ public class HomeActivity extends ActivityWithMessage
         setContentView(R.layout.activity_home);
 
         iniComponents();
+        list.addAll(DataContainer.products);
 
         addListeners();
 
     }
 
     private void addListeners() {
+
+        mIvSearchDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEtSearch.setText("");
+                list.clear();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        mEtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            int counter = 0;
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                counter = s.length();
+
+                if (count >= 3) {
+
+                    mPbSearch.setVisibility(View.VISIBLE);
+                    mIvSearchDelete.setVisibility(View.GONE);
+                } else {
+                    mPbSearch.setVisibility(View.GONE);
+                    mIvSearchDelete.setVisibility(View.VISIBLE);
+                    list.clear();
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            private Timer timer = new Timer();
+            private final long DELAY = 2000; // milliseconds
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(
+                        new TimerTask() {
+                            @Override
+                            public void run() {
+                                // TODO: do what you need here (refresh list)
+
+//                                mPbSearch.setVisibility(View.VISIBLE);
+//                                mIvSearchDelete.setVisibility(View.GONE);
+
+                                if (counter >= 3) {
+                                    Log.i("search text", mEtSearch.getText() + "" + counter);
+
+                                    GsonReguest<ResponseProducts> responseProductsGsonReguest = new GsonReguest<ResponseProducts>(
+                                            Constant.URL_PRODUCTS_SEARCH + "?token=" + DataContainer.loginToken + "&search=1&limit=500&start=0&term=" + mEtSearch.getText().toString(),
+                                            Request.Method.GET,
+                                            ResponseProducts.class,
+                                            new Response.Listener<ResponseProducts>() {
+                                                @Override
+                                                public void onResponse(ResponseProducts response) {
+
+                                                    CharSequence cs = mEtSearch.getText();
+                                                    if (cs.length() > 2) {
+                                                        list.clear();
+                                                        list.addAll(response.data.results);
+                                                        adapter.notifyDataSetChanged();
+                                                        mRecyclerView.setVisibility(View.VISIBLE);
+                                                        mPbSearch.setVisibility(View.GONE);
+                                                        mIvSearchDelete.setVisibility(View.VISIBLE);
+                                                    } else {
+                                                        list.clear();
+                                                        adapter.notifyDataSetChanged();
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+
+                                        }
+                                    }
+                                    );
+
+                                    DataLoader.addRequest(getApplicationContext(), responseProductsGsonReguest, REQUEST_TAG);
+                                }
+                            }
+                        },
+                        DELAY
+                );
+            }
+        });
+
+        mIvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (search) {
+                    mRlSearch.setVisibility(View.GONE);
+                    search = false;
+                    list.clear();
+                    list.addAll(DataContainer.products);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    mRlSearch.setVisibility(View.VISIBLE);
+                    search = true;
+                    list.clear();
+                    list.addAll(DataContainer.serchList);
+                    adapter.notifyDataSetChanged();
+
+                }
+            }
+        });
+
         mIvShopingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +235,7 @@ public class HomeActivity extends ActivityWithMessage
                     } else if (DataContainer.categories.get(groupPosition).name.equalsIgnoreCase("Podesavanja")) {
 
                     } else if (DataContainer.categories.get(groupPosition).name.equalsIgnoreCase("Profil")) {
-                        startActivity(new Intent(getApplicationContext(),ProfilActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
 
                     } else if (DataContainer.categories.get(groupPosition).name.equalsIgnoreCase("Odjavi se")) {
 
@@ -137,6 +266,11 @@ public class HomeActivity extends ActivityWithMessage
 
     private void iniComponents() {
 
+        mPbSearch = (ProgressBar) findViewById(R.id.search_progres);
+        mIvSearchDelete = (ImageView) findViewById(R.id.search_delete);
+        mEtSearch = (EditTextFont) findViewById(R.id.search_edit_text);
+        mRlSearch = (RelativeLayout) findViewById(R.id.search_layout);
+        mIvSearch = (ImageView) findViewById(R.id.search);
         mExpandableListView = (ExpandableListView) findViewById(R.id.list);
         MenuAdapter listAdapter = new MenuAdapter(this, DataContainer.categories);
         mExpandableListView.setAdapter(listAdapter);
@@ -153,7 +287,7 @@ public class HomeActivity extends ActivityWithMessage
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(gridLayoutManager);
 
-        adapter = new RecyclerAdapter(getApplicationContext(), DataContainer.products, this);
+        adapter = new RecyclerAdapter(getApplicationContext(), list, this);
         mRecyclerView.setAdapter(adapter);
 
         mIvShopingCart = (ImageView) findViewById(R.id.shoping_cart);
@@ -197,21 +331,21 @@ public class HomeActivity extends ActivityWithMessage
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getApplicationContext(),"greska",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "greska", Toast.LENGTH_LONG).show();
                 }
             }
-            ){
+            ) {
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     Map<String, String> requestParams = new HashMap<>();
                     requestParams.put("user_id", DataContainer.user.id);
-                    requestParams.put("item_id",product.id);
-                    requestParams.put("token",DataContainer.loginToken);
+                    requestParams.put("item_id", product.id);
+                    requestParams.put("token", DataContainer.loginToken);
                     return requestParams;
                 }
             };
 
-            DataLoader.addRequest(getApplicationContext(),gsonReguest, REQUEST_TAG);
+            DataLoader.addRequest(getApplicationContext(), gsonReguest, REQUEST_TAG);
         } else if (view.getId() == R.id.image) {
             GsonReguest<ResponseSingleProduct> reguest = new GsonReguest<ResponseSingleProduct>(
                     Constant.SINGLE_PRODUCT + "&id=" + adapter.getItemId(position) + "",
@@ -245,6 +379,12 @@ public class HomeActivity extends ActivityWithMessage
     public void onBackPressed() {
         if (this.mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             this.mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else if (search) {
+            mRlSearch.setVisibility(View.GONE);
+            search = false;
+            list.clear();
+            list.addAll(DataContainer.products);
+            adapter.notifyDataSetChanged();
         } else {
             super.onBackPressed();
         }

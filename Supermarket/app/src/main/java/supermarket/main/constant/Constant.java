@@ -33,6 +33,8 @@ public class Constant {
 
     public static String ORDER = BASE_URL + "phone-order";
 
+    public static String URL_PRODUCTS_SEARCH = BASE_URL + "phone-products";
+
 
     public static final String URL_FAVOURITES_LIST = BASE_URL + "phone-wishlist";
     public static final String URL_FAVOURITES_ADD = BASE_URL + "phone-wishlist-add";

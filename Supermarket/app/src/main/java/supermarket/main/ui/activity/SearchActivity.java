@@ -3,6 +3,8 @@ package supermarket.main.ui.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import supermarket.main.R;
+
 public class SearchActivity extends AppCompatActivity {
 
     @Override

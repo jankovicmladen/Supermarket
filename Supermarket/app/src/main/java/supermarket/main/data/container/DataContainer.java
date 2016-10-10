@@ -32,6 +32,8 @@ public class DataContainer {
 
     public static DataAddress address;
     public static ArrayList<DataProduct> products;
+    public static ArrayList<DataProduct> serchList = new ArrayList<>();
+
     public static DataSingleProduct product;
     public static ArrayList<DataProduct> cart = new ArrayList<>();
 

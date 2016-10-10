@@ -34,22 +34,72 @@
                     android:src="@drawable/ic_menu_24dp" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/search"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="61dp"
-                    android:layout_toRightOf="@id/menu"
-                    android:src="@drawable/logo_white" />
+                    android:layout_marginRight="18dp"
+                    android:src="@drawable/search" />
+
 
                 <ImageView
                     android:id="@+id/shoping_cart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/search"
+                    android:src="@drawable/ic_shopping_cart" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/menu"
+                    android:layout_toLeftOf="@id/shoping_cart"
+                    android:src="@drawable/logo_white" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/search_layout"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_below="@id/layout"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/search_delete"
                     android:layout_width="33dp"
                     android:layout_height="33dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="18dp"
-                    android:src="@drawable/ic_shopping_cart" />
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_clear"/>
+
+                <ProgressBar
+                    android:id="@+id/search_progres"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:visibility="gone"/>
+
+                <supermarket.main.customComponents.EditTextFont
+                    android:id="@+id/search_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="80dp"
+                    android:hint="Search"
+                    android:textColor="@color/white"/>
+
 
             </RelativeLayout>
 
@@ -57,12 +107,18 @@
                 android:id="@+id/recyeler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/layout"
+                android:layout_below="@id/search_layout"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_alignParentBottom="true">
 
             </android.support.v7.widget.RecyclerView>
+
+
+
+
+
 
         </RelativeLayout>
     </FrameLayout>
