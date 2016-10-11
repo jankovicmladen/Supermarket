@@ -110,5 +110,15 @@
             android:text="@string/ZaboravljenaLozinka"
             android:textColor="@color/white" />
 
+        <supermarket.main.customComponents.TextViewFont
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/zaboravljena_lozinka"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="@string/skip"
+            android:textColor="@color/white" />
+
     </RelativeLayout>
 </LinearLayout>

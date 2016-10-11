@@ -71,14 +71,6 @@ public class ActivityWithMessage extends AppCompatActivity {
                 mTvMessage.setText(messageObject.stringResource);
 
 
-//                boolean tmp = false;
-//                for(int i =0; i<viewGroup.getChildCount();i++){
-//                    if(viewGroup.getChildAt(i).getId() == mMessageView.getId()){
-//                        tmp = true;
-//                    }
-//                }
-
-                //  if(!tmp){
                 viewGroup.addView(mMessageView);
                 //   }
 

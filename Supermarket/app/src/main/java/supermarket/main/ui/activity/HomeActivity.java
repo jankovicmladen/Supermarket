@@ -1,6 +1,7 @@
 package supermarket.main.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,6 +25,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.scottyab.aescrypt.AESCrypt;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -55,16 +57,15 @@ public class HomeActivity extends ActivityWithMessage
 
     private final String REQUEST_TAG = "load_single_product";
     private RecyclerView mRecyclerView;
-    RecyclerAdapter adapter;
+    private RecyclerAdapter adapter;
     private ImageView mIvShopingCart, mIvSearch;
     private ImageView mIvMenu;
     private RelativeLayout mLvMenu;
     private DrawerLayout mDrawerLayout;
-    Animation animation;// = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_image);
-    ActionBarDrawerToggle actionBarDrawerToggle;
+    private Animation animation;// = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_image);
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
-    private TextViewFont mTvUsenName;
-    private TextViewFont mTvUserMail;
+    private TextViewFont mTvUsenName, mTvUserMail;
     private EditTextFont mEtSearch;
     private RelativeLayout mRlSearch;
     private ImageView mIvSearchDelete;
@@ -237,8 +238,15 @@ public class HomeActivity extends ActivityWithMessage
                     } else if (DataContainer.categories.get(groupPosition).name.equalsIgnoreCase("Profil")) {
                         startActivity(new Intent(getApplicationContext(), ProfilActivity.class));
 
-                    } else if (DataContainer.categories.get(groupPosition).name.equalsIgnoreCase("Odjavi se")) {
+                    } else if (DataContainer.categories.get(groupPosition).name.contains("Odjavi")) {
 
+                        SharedPreferences settings = getSharedPreferences(DataContainer.PREFS_NAME, 0);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString(DataContainer.USERNAME, "");
+                        editor.putString(DataContainer.PASSWORD, "");
+                        editor.putBoolean(DataContainer.STAY_LOGIN, false);
+                        editor.commit();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     } else {
                         GsonReguest<ResponseCategory> gsonCategoryRequest = new GsonReguest<ResponseCategory>(
                                 Constant.CATEGORY_SEARCH_URL + DataContainer.categories.get(groupPosition).id, Request.Method.GET, ResponseCategory.class,
@@ -276,7 +284,9 @@ public class HomeActivity extends ActivityWithMessage
         mExpandableListView.setAdapter(listAdapter);
 
         mTvUsenName = (TextViewFont) findViewById(R.id.name);
-        mTvUsenName.setText(DataContainer.user.first_name + " " + DataContainer.user.last_name);
+        if(DataContainer.user.first_name!=null) {
+            mTvUsenName.setText(DataContainer.user.first_name + " " + DataContainer.user.last_name);
+        }
         mTvUserMail = (TextViewFont) findViewById(R.id.email);
         mTvUserMail.setText(DataContainer.user.email);
 

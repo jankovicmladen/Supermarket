@@ -381,10 +381,11 @@
 
             <Spinner
                 android:id="@+id/spinner_city"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/img_city"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
             </Spinner>
         </RelativeLayout>
@@ -406,7 +407,7 @@
 
             <supermarket.main.customComponents.EditTextFont
                 android:id="@+id/postal_code"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"

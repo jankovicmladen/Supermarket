@@ -60,10 +60,10 @@ public class StartActivity extends ActivityWithMessage {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
 
-        SharedPreferences settings = getSharedPreferences(LoginFragment.PREFS_NAME, 0);
-        username = settings.getString(LoginFragment.USERNAME, "");
-        password = settings.getString(LoginFragment.PASSWORD, "");
-        staylogin = settings.getBoolean(LoginFragment.STAY_LOGIN,false);
+        SharedPreferences settings = getSharedPreferences(DataContainer.PREFS_NAME, 0);
+        username = settings.getString(DataContainer.USERNAME, "");
+        password = settings.getString(DataContainer.PASSWORD, "");
+        staylogin = settings.getBoolean(DataContainer.STAY_LOGIN,false);
 
         try {
             if(!password.equalsIgnoreCase("")) {

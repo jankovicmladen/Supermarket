@@ -18,6 +18,10 @@ import supermarket.main.ui.activity.CartActivity;
  */
 public class DataContainer {
     public static String TOKEN;
+    public static final String PREFS_NAME = "login";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String STAY_LOGIN = "staylogin";
 
     public static ArrayList<DataCategory> categories;
     public static ArrayList<DataCity> cities;

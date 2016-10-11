@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,6 +26,7 @@ import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.container.DataContainer;
+import supermarket.main.data.response.ResponseDataUser;
 import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseUser;
 import supermarket.main.networking.DataLoader;
@@ -38,12 +40,10 @@ import supermarket.main.ui.activity.HomeActivity;
 public class LoginFragment extends Fragment {
 
     private final String REQUEST_TAG = "Login";
-    public static final String PREFS_NAME = "login";
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String STAY_LOGIN = "staylogin";
 
-    private TextViewFont mTvForgotPassword;
+
+
+    private TextViewFont mTvForgotPassword, mTvSkip;
     private View mRootView;
 
     private EditTextFont mEtUsername;
@@ -54,6 +54,7 @@ public class LoginFragment extends Fragment {
     private Button mBtnLogin;
 
     private GsonReguest<ResponseProducts> responseProducts;
+    private boolean login = false;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -80,6 +81,7 @@ public class LoginFragment extends Fragment {
 
 
     private void iniComponents() {
+        mTvSkip = (TextViewFont) mRootView.findViewById(R.id.skip);
         mTvForgotPassword = (TextViewFont) mRootView.findViewById(R.id.zaboravljena_lozinka);
 
         mEtUsername = (EditTextFont) mRootView.findViewById(R.id.et_username);
@@ -90,6 +92,16 @@ public class LoginFragment extends Fragment {
     }
 
     private void addListeners() {
+
+        mTvSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login = false;
+                DataContainer.user = new ResponseDataUser();
+                DataLoader.addRequest(getActivity().getApplicationContext(), responseProducts, REQUEST_TAG);
+            }
+        });
+
         mTvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,11 +114,15 @@ public class LoginFragment extends Fragment {
                 new Response.Listener<ResponseProducts>() {
                     @Override
                     public void onResponse(ResponseProducts response) {
-                        Log.i("response", response.data.status);
-
                         DataContainer.products = response.data.results;
-                        startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
-                        getActivity().finish();
+                        if(login) {
+
+                            startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
+                            getActivity().finish();
+                        }else {
+                            startActivity(new Intent(getActivity().getApplicationContext(),HomeActivity.class));
+                            getActivity().finish();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -119,7 +135,7 @@ public class LoginFragment extends Fragment {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                login = true;
                 GsonReguest<ResponseUser> gsonReguest = new GsonReguest<ResponseUser>(Constant.LOGIN_URL,
                         Request.Method.POST, ResponseUser.class,
                         new Response.Listener<ResponseUser>() {
@@ -132,14 +148,14 @@ public class LoginFragment extends Fragment {
 
                                 try {
                                     String encryptedMsg = AESCrypt.encrypt(Constant.PASSWORD, mEtPassword.getText().toString());
-                                    SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
+                                    SharedPreferences settings = getActivity().getSharedPreferences(DataContainer.PREFS_NAME, 0);
                                     SharedPreferences.Editor editor = settings.edit();
-                                    editor.putString(USERNAME, mEtUsername.getText().toString());
-                                    editor.putString(PASSWORD, encryptedMsg);
+                                    editor.putString(DataContainer.USERNAME, mEtUsername.getText().toString());
+                                    editor.putString(DataContainer.PASSWORD, encryptedMsg);
                                     if (mCbStayLogin.isChecked()) {
-                                        editor.putBoolean(STAY_LOGIN, true);
+                                        editor.putBoolean(DataContainer.STAY_LOGIN, true);
                                     }else {
-                                        editor.putBoolean(STAY_LOGIN,false);
+                                        editor.putBoolean(DataContainer.STAY_LOGIN,false);
                                     }
 
                                     // Commit the edits!
@@ -154,7 +170,6 @@ public class LoginFragment extends Fragment {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }) {
                     @Override
