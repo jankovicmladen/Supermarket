@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,6 +6,20 @@
     android:orientation="vertical"
     tools:context=".ui.fragment.LoginFragment">
 
+
+    <RelativeLayout
+        android:id="@+id/progres"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transpatent"
+        android:visibility="gone"
+        android:clickable="true">
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/username"
@@ -28,11 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
             android:layout_toRightOf="@id/img_username"
             android:hint="@string/username"
             android:textColorHint="@color/white"
-            android:textSize="15sp"
-            android:layout_marginRight="15dp"/>
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,18 +71,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
             android:layout_toRightOf="@id/img_password"
             android:hint="@string/password"
-            android:textColorHint="@color/white"
-            android:textSize="15sp"
             android:inputType="textPassword"
-            android:layout_marginRight="15dp"/>
+            android:textColorHint="@color/white"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
+        android:layout_below="@+id/password"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
@@ -84,7 +99,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
+        android:layout_below="@id/checkbox"
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
@@ -121,4 +136,4 @@
             android:textColor="@color/white" />
 
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

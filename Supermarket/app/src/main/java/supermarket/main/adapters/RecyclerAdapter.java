@@ -54,7 +54,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         title.setText(product.name);
 
         TextViewFont price = holder.price;
-        price.setText(product.price);
+        float price2 = Float.parseFloat(product.price);
+        price.setText(String.format("%.2f", price2));
 
         ImageView imageView = holder.image;
         Glide.with(context).load(product.thumb330)

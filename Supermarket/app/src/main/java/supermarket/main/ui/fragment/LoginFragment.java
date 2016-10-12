@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,6 +27,8 @@ import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.container.DataContainer;
+import supermarket.main.data.response.BaseResponse;
+import supermarket.main.data.response.ForgotPaswordResponse;
 import supermarket.main.data.response.ResponseDataUser;
 import supermarket.main.data.response.ResponseProducts;
 import supermarket.main.data.response.ResponseUser;
@@ -43,7 +46,7 @@ public class LoginFragment extends Fragment {
 
 
 
-    private TextViewFont mTvForgotPassword, mTvSkip;
+    private TextViewFont mTvForgotPassword, mTvSkip, mTvZaboravljenaLozinka;
     private View mRootView;
 
     private EditTextFont mEtUsername;
@@ -54,7 +57,10 @@ public class LoginFragment extends Fragment {
     private Button mBtnLogin;
 
     private GsonReguest<ResponseProducts> responseProducts;
+    private GsonReguest<ForgotPaswordResponse> responseForgotPassword;
     private boolean login = false;
+
+    private RelativeLayout mRlProgres;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -89,9 +95,39 @@ public class LoginFragment extends Fragment {
         mCbStayLogin = (CheckBox) mRootView.findViewById(R.id.staylogin);
 
         mBtnLogin = (Button) mRootView.findViewById(R.id.btn_nastavi);
+        mRlProgres = (RelativeLayout) mRootView.findViewById(R.id.progres);
+
+        mTvZaboravljenaLozinka = (TextViewFont) mRootView.findViewById(R.id.zaboravljena_lozinka);
+
     }
 
     private void addListeners() {
+
+        responseForgotPassword = new GsonReguest<ForgotPaswordResponse>(
+                Constant.FORGOT_PASSWORD_URL,
+                Request.Method.GET,
+                ForgotPaswordResponse.class,
+                new Response.Listener<ForgotPaswordResponse>() {
+                    @Override
+                    public void onResponse(ForgotPaswordResponse response) {
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Ukoliko ste uneli ispravnu email adresu, dobićete link za izmenu korisničke lozinke.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                DataLoader.addRequest(getActivity().getApplicationContext(),responseForgotPassword,REQUEST_TAG);
+            }
+        }
+        );
+
+        mTvZaboravljenaLozinka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         mTvSkip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,10 +152,11 @@ public class LoginFragment extends Fragment {
                     public void onResponse(ResponseProducts response) {
                         DataContainer.products = response.data.results;
                         if(login) {
-
+                            mRlProgres.setVisibility(View.GONE);
                             startActivity(new Intent(getActivity().getApplicationContext(), HomeActivity.class));
                             getActivity().finish();
                         }else {
+                            mRlProgres.setVisibility(View.GONE);
                             startActivity(new Intent(getActivity().getApplicationContext(),HomeActivity.class));
                             getActivity().finish();
                         }
@@ -135,6 +172,14 @@ public class LoginFragment extends Fragment {
         mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(mEtUsername.getText().length()==0 || mEtPassword.getText().length()==0){
+                    Toast.makeText(getActivity().getApplicationContext(),"Morate uneti sve parametre",Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                mRlProgres.setVisibility(View.VISIBLE);
+                mRlProgres.bringToFront();
                 login = true;
                 GsonReguest<ResponseUser> gsonReguest = new GsonReguest<ResponseUser>(Constant.LOGIN_URL,
                         Request.Method.POST, ResponseUser.class,
@@ -170,6 +215,7 @@ public class LoginFragment extends Fragment {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity().getApplicationContext(),"pogresni parametri",Toast.LENGTH_LONG).show();
                     }
                 }) {
                     @Override
