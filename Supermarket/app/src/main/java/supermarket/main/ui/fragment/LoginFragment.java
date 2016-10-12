@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,7 +26,6 @@ import supermarket.main.constant.Constant;
 import supermarket.main.customComponents.EditTextFont;
 import supermarket.main.customComponents.TextViewFont;
 import supermarket.main.data.container.DataContainer;
-import supermarket.main.data.response.BaseResponse;
 import supermarket.main.data.response.ForgotPaswordResponse;
 import supermarket.main.data.response.ResponseDataUser;
 import supermarket.main.data.response.ResponseProducts;
@@ -110,9 +108,7 @@ public class LoginFragment extends Fragment {
                 new Response.Listener<ForgotPaswordResponse>() {
                     @Override
                     public void onResponse(ForgotPaswordResponse response) {
-                        Toast.makeText(getActivity().getApplicationContext(),
-                                "Ukoliko ste uneli ispravnu email adresu, dobićete link za izmenu korisničke lozinke.",
-                                Toast.LENGTH_LONG).show();
+                        BusProvider.getInstance().post(new MessageObject(R.string.greskaLogovanje, MessageObject.MESSAGE_ERROR));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -174,7 +170,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
 
                 if(mEtUsername.getText().length()==0 || mEtPassword.getText().length()==0){
-                    Toast.makeText(getActivity().getApplicationContext(),"Morate uneti sve parametre",Toast.LENGTH_LONG).show();
+                    BusProvider.getInstance().post(new MessageObject(R.string.morateUnetisve, MessageObject.MESSAGE_ERROR));
                     return;
                 }
 
@@ -215,7 +211,8 @@ public class LoginFragment extends Fragment {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity().getApplicationContext(),"pogresni parametri",Toast.LENGTH_LONG).show();
+                        BusProvider.getInstance().post(new MessageObject(R.string.pogresniParametri, MessageObject.MESSAGE_ERROR));
+                        mRlProgres.setVisibility(View.GONE);
                     }
                 }) {
                     @Override

@@ -49,6 +49,9 @@
     <string name="uspesna_kupovina">Čestitamo, Vaša narudzbina je uspešno prosleđena.</string>
     <string name="izmeni">Izmeni</string>
     <string name="skip">Skip</string>
+    <string name="greskaLogovanje">Ukoliko ste uneli ispravnu email adresu, dobićete link za izmenu korisničke lozinke.</string>
+    <string name="morateUnetisve">Morate uneti sve parametre</string>
+    <string name="pogresniParametri">Pogresni parametri.</string>
 
     <string-array name="nacin_kupovine">
         <item>Novac u gotovini</item>
